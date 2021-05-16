@@ -424,7 +424,7 @@ Starts or stops engine of specified car, and returns it's actual velocity and di
 
 **Switch Car's Engine to Drive Mode**
 ----
-Switches engine of specified car to drive mode and finishes with success message or falls with 500 error.
+Switches engine of specified car to drive mode and finishes with success message or fails with 500 error.
 
 <details>
 
