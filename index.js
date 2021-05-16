@@ -58,7 +58,7 @@ server.get('/engine', (req, res) => {
     }
 
     if (!db.garage.find(car => car.id === +id)) {
-        res.status(404).send('Car with such id was not found in the garage.')
+        return res.status(404).send('Car with such id was not found in the garage.')
     }
 
     const distance = 500000;
@@ -76,13 +76,13 @@ server.get('/engine', (req, res) => {
             setTimeout(() => {
                 delete state.velocity[id];
                 delete state.blocked[id];
-                res.header('X-Time', x).header('Content-Type', 'application/json').status(500).send('Car has been stopped suddenly. It\'s engine was broken down.');
+                res.header('Content-Type', 'application/json').status(500).send('Car has been stopped suddenly. It\'s engine was broken down.');
             }, Math.random() * x ^ 0);
         } else {
             setTimeout(() => {
                 delete state.velocity[id];
                 delete state.blocked[id];
-                res.header('X-Time', x).header('Content-Type', 'application/json').status(200).send(JSON.stringify({ success: true }));
+                res.header('Content-Type', 'application/json').status(200).send(JSON.stringify({ success: true }));
             }, x);
         }
     } else {
@@ -97,7 +97,7 @@ server.get('/engine', (req, res) => {
             delete state.blocked[id];
         }
 
-        setTimeout(() => res.header('X-Time', x).header('Content-Type', 'application/json').status(200).send(JSON.stringify({ velocity, distance })), x);
+        setTimeout(() => res.header('Content-Type', 'application/json').status(200).send(JSON.stringify({ velocity, distance })), x);
     }
 });
 

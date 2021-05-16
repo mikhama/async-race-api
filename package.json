@@ -4,7 +4,7 @@
   "description": "Fun with promises",
   "main": "index.js",
   "scripts": {
-    "server": "node index.js"
+    "start": "node index.js"
   },
   "author": "mikhama",
   "license": "MIT",
