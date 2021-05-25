@@ -42,14 +42,6 @@ const state = { velocity: {}, blocked: {} };
 
 server.use(middlewares);
 
-server.get('/garage/count', (_, res) => {
-    res.status(200).send(JSON.stringify({ count: db.garage.length }));
-});
-
-server.get('/winners/count', (_, res) => {
-    res.status(200).send(JSON.stringify({ count: db.winners.length }));
-});
-
 server.get('/engine', (req, res) => {
     const { id, status } = req.query;
 

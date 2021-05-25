@@ -31,6 +31,8 @@ Returns json data about cars in a garage.
   
     `_limit=[integer]`
 
+    If `_limit` param is passed api returns a header `X-Total-Count` that countains total number of records.
+
 * **Data Params**
 
     None
@@ -48,53 +50,9 @@ Returns json data about cars in a garage.
         }
       ]
     ```
- 
-* **Error Response:**
-
-    None
-
-* **Notes:**
-
-    None
-
-</details>
-
-**Get Cars Count**
-----
-Returns json data about count of cars in a garage.
-
-<details>
-
-* **URL**
-
-    /garage/count
-
-* **Method:**
-
-    `GET`
-
-* **Headers:**
-
-    None
-
-*  **URL Params**
-
-    None
-
-* **Query Params**
-
-    None
-
-* **Data Params**
-
-    None
-
-* **Success Response:**
-
-  * **Code:** 200 OK <br />
-    **Content:** 
-    ```json
-      {"count":4}
+    **Headers:**
+    ```
+      "X-Total-Count": "4"
     ```
  
 * **Error Response:**
@@ -519,6 +477,8 @@ Returns json data about winners.
 
     `_order=['ASC'|'DESC']`
 
+    If `_limit` param is passed api returns a header `X-Total-Count` that countains total number of records.
+
 * **Data Params**
 
     None
@@ -536,53 +496,9 @@ Returns json data about winners.
         }
       ]
     ```
- 
-* **Error Response:**
-
-    None
-
-* **Notes:**
-
-    None
-
-</details>
-
-**Get Winners Count**
-----
-Returns json data about count of winners.
-
-<details>
-
-* **URL**
-
-    /winners/count
-
-* **Method:**
-
-    `GET`
-
-* **Headers:**
-
-    None
-
-*  **URL Params**
-
-    None
-
-* **Query Params**
-
-    None
-
-* **Data Params**
-
-    None
-
-* **Success Response:**
-
-  * **Code:** 200 OK <br />
-    **Content:** 
-    ```json
-      {"count":4}
+    **Headers:**
+    ```
+      "X-Total-Count": "4"
     ```
  
 * **Error Response:**
@@ -707,6 +623,60 @@ Creates a new records in a winners table.
       **Content:** 
 
       Error: Insert failed, duplicate id
+
+* **Notes:**
+
+    None
+
+</details>
+
+**Delete Winner**
+----
+Delete specified car from a garage
+
+<details>
+
+* **URL**
+
+    /winners/:id
+
+* **Method:**
+
+    `DELETE`
+
+* **Headers:**
+
+    None
+
+*  **URL Params**
+
+    **Required:**
+ 
+    `id=[integer]`
+
+* **Query Params**
+
+    None
+
+* **Data Params**
+
+    None
+
+* **Success Response:**
+
+  * **Code:** 200 OK <br />
+    **Content:** 
+    ```json
+      {}
+    ```
+ 
+* **Error Response:**
+
+  * **Code:** 404 NOT FOUND <br />
+    **Content:** 
+    ```json
+      {}
+    ```
 
 * **Notes:**
 
