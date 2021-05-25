@@ -1,5 +1,33 @@
 # async-race-api
-Api for Rolling Scopes School task "Async Race"
+Api for Rolling Scopes School task "Async Race".
+
+## Setup and Running
+
+- Use `node 14.x` or higher.
+- Clone this repo: `$ git clone https://github.com/mikhama/async-race-api.git`.
+- Go to downloaded folder: `$ cd async-race-api`.
+- Install dependencies: `$ npm install`.
+- Start server: `$ npm start`.
+- Now you can send requests to the address: `http://127.0.0.1:3000`.
+
+## Usage
+
+- **Garage**
+    - [Get Cars](https://github.com/mikhama/async-race-api#get-cars)
+    - [Get Cars Count](https://github.com/mikhama/async-race-api#get-cars-count)
+    - [Get Car](https://github.com/mikhama/async-race-api#get-car)
+    - [Create Car](https://github.com/mikhama/async-race-api#create-car)
+    - [Delete Car](https://github.com/mikhama/async-race-api#delete-car)
+    - [Update Car](https://github.com/mikhama/async-race-api#update-car)
+- **Engine**
+    - [Start / Stop Car's Engine](https://github.com/mikhama/async-race-api#start--stop-cars-engine)
+    - [Switch Car's Engine to Drive Mode](https://github.com/mikhama/async-race-api#switch-cars-engine-to-drive-mode)
+- **Winners**
+    - [Get Winners](https://github.com/mikhama/async-race-api#get-winners)
+    - [Get Winners Count](https://github.com/mikhama/async-race-api#get-winners-count)
+    - [Get Winner](https://github.com/mikhama/async-race-api#get-winner)
+    - [Create Winner](https://github.com/mikhama/async-race-api#create-winner)
+    - [Update Winner](https://github.com/mikhama/async-race-api#update-winner)
 
 **Get Cars**
 ----
@@ -298,7 +326,7 @@ Updates attributes of specified car.
 
 </details>
 
-**Starts / Stops Car's Engine**
+**Start / Stop Car's Engine**
 ----
 Starts or stops engine of specified car, and returns it's actual velocity and distance.
 
@@ -365,7 +393,7 @@ Starts or stops engine of specified car, and returns it's actual velocity and di
 
 **Switch Car's Engine to Drive Mode**
 ----
-Switches engine of specified car to drive mode and finishes with success message or falls with 500 error.
+Switches engine of specified car to drive mode and finishes with success message or fails with 500 error.
 
 <details>
 
