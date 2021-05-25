@@ -14,7 +14,6 @@ Api for Rolling Scopes School task "Async Race".
 
 - **Garage**
     - [Get Cars](https://github.com/mikhama/async-race-api#get-cars)
-    - [Get Cars Count](https://github.com/mikhama/async-race-api#get-cars-count)
     - [Get Car](https://github.com/mikhama/async-race-api#get-car)
     - [Create Car](https://github.com/mikhama/async-race-api#create-car)
     - [Delete Car](https://github.com/mikhama/async-race-api#delete-car)
@@ -24,7 +23,6 @@ Api for Rolling Scopes School task "Async Race".
     - [Switch Car's Engine to Drive Mode](https://github.com/mikhama/async-race-api#switch-cars-engine-to-drive-mode)
 - **Winners**
     - [Get Winners](https://github.com/mikhama/async-race-api#get-winners)
-    - [Get Winners Count](https://github.com/mikhama/async-race-api#get-winners-count)
     - [Get Winner](https://github.com/mikhama/async-race-api#get-winner)
     - [Create Winner](https://github.com/mikhama/async-race-api#create-winner)
     - [Update Winner](https://github.com/mikhama/async-race-api#update-winner)
