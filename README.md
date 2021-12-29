@@ -336,7 +336,7 @@ Starts or stops engine of specified car, and returns it's actual velocity and di
 
 * **Method:**
 
-    `GET`
+    `PATCH`
 
 * **Headers:**
 
@@ -401,7 +401,7 @@ Switches engine of specified car to drive mode and finishes with success message
 
 * **Method:**
 
-    `GET`
+    `PATCH`
 
 * **Headers:**
 

@@ -42,7 +42,7 @@ const state = { velocity: {}, blocked: {} };
 
 server.use(middlewares);
 
-server.get('/engine', (req, res) => {
+server.patch('/engine', (req, res) => {
     const { id, status } = req.query;
 
     if (!id || !status || !/^(started)|(stopped)|(drive)$/.test(status)) {
