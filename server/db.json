@@ -1,0 +1,86 @@
+{
+  "garage": [
+    {
+      "name": "Tesla",
+      "color": "#e6e6fa",
+      "id": 1
+    },
+    {
+      "name": "BMW",
+      "color": "#fede00",
+      "id": 2
+    },
+    {
+      "name": "Mersedes",
+      "color": "#6c779f",
+      "id": 3
+    },
+    {
+      "name": "Ford",
+      "color": "#ef3c40",
+      "id": 4
+    },
+    {
+      "name": "Ferrari",
+      "color": "#ef6c40",
+      "id": 5
+    },
+    {
+      "name": "rikki",
+      "color": "#000000",
+      "id": 6
+    },
+    {
+      "name": "rikki",
+      "color": "#000000",
+      "id": 7
+    },
+    {
+      "name": "rikki",
+      "color": "#f38a21",
+      "id": 8
+    },
+    {
+      "name": "Chevrolet Cruze",
+      "color": "#3D45BB",
+      "id": 9
+    },
+    {
+      "name": "LADA PRIORA sedan",
+      "color": "#4EBD57",
+      "id": 10
+    },
+    {
+      "name": "Chrysler Grand Voyager",
+      "color": "#EF4175",
+      "id": 11
+    },
+    {
+      "name": "Audi A4 B6",
+      "color": "#46624F",
+      "id": 12
+    },
+    {
+      "name": "Audi A4 B5",
+      "color": "#1C1179",
+      "id": 13
+    },
+    {
+      "name": "VAZ 2112",
+      "color": "#CD213C",
+      "id": 14
+    },
+    {
+      "name": "Chrysler Grand Voyager",
+      "color": "#7F8869",
+      "id": 15
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "garageID": "1",
+      "message": "Good"
+    }
+  ]
+}

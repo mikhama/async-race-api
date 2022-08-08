@@ -1,0 +1,202 @@
+@import url("https://fonts.googleapis.com/css2?family=Bungee+Inline&family=Montserrat:wght@100&display=swap");
+body {
+  background-color: #223455;
+}
+body .wrapper {
+  width: 100%;
+  font-family: "Bungee Inline", cursive;
+  color: white;
+}
+body .wrapper .header-btn-blocks {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+body .wrapper .header-btn-blocks .btn {
+  background: none;
+  color: aliceblue;
+  font-size: 14px;
+  border-radius: 10px;
+  padding: 0 10px;
+  margin: 5px;
+  font-family: "Bungee Inline", cursive;
+}
+body .wrapper .header-btn-blocks .btn:hover,
+body .wrapper .header-btn-blocks .btn:active {
+  background-color: white;
+  color: #223455;
+  -webkit-box-shadow: 0px 0px 11px white;
+          box-shadow: 0px 0px 11px white;
+  cursor: pointer;
+}
+body .wrapper .color-blocks {
+  width: 280px;
+}
+body .wrapper .color-blocks .create-cl-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin: 10px 0 10px;
+}
+body .wrapper .color-blocks .update-cl-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 10px;
+}
+body .wrapper .color-blocks input {
+  background: none;
+  border-radius: 10px;
+  color: white;
+}
+body .wrapper .color-blocks .color {
+  background-color: aliceblue;
+  width: 50px;
+  height: 30px;
+}
+body .wrapper .color-blocks .btn-create,
+body .wrapper .color-blocks .btn-update {
+  background: none;
+  color: aliceblue;
+  font-size: 10.5px;
+  border-radius: 10px;
+  padding: 0 5px;
+  font-family: "Bungee Inline", cursive;
+}
+body .wrapper .color-blocks .btn-create:hover,
+body .wrapper .color-blocks .btn-update:hover {
+  background-color: white;
+  color: #223455;
+  -webkit-box-shadow: 0px 0px 11px white;
+          box-shadow: 0px 0px 11px white;
+  cursor: pointer;
+}
+body .wrapper .btn-blocks .btn {
+  background: none;
+  color: aliceblue;
+  font-size: 10.5px;
+  border-radius: 10px;
+  padding: 0 10px;
+  margin-right: 15px;
+  font-family: "Bungee Inline", cursive;
+}
+body .wrapper .btn-blocks .btn:hover {
+  background-color: white;
+  color: #223455;
+  -webkit-box-shadow: 0px 0px 11px white;
+          box-shadow: 0px 0px 11px white;
+  cursor: pointer;
+}
+body .wrapper .main-page h1, body .wrapper .main-page h3 {
+  margin: 0;
+}
+body .wrapper .main-page .cars-bloks {
+  border-bottom: 3px dotted white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+body .wrapper .main-page .cars-bloks .cars .box-car {
+  margin: 10px 0 10px;
+  position: relative;
+}
+body .wrapper .main-page .cars-bloks .cars .box-car img {
+  position: absolute;
+}
+body .wrapper .main-page .cars-bloks .cars .box-btn .btn {
+  background: none;
+  color: aliceblue;
+  font-size: 10.5px;
+  border-radius: 10px;
+  padding: 0 10px;
+  margin-right: 5px;
+  font-family: "Bungee Inline", cursive;
+}
+body .wrapper .main-page .cars-bloks .cars .box-btn .btn:hover {
+  background-color: white;
+  color: #223455;
+  -webkit-box-shadow: 0px 0px 11px white;
+          box-shadow: 0px 0px 11px white;
+  cursor: pointer;
+}
+body .wrapper .main-page .cars-bloks .cars .btn-cars {
+  background: none;
+  border-radius: 10px;
+  padding: 0 10px;
+  margin-right: 5px;
+  font-family: "Bungee Inline", cursive;
+}
+body .wrapper .main-page .cars-bloks .cars .btnA {
+  color: green;
+  border-color: green;
+}
+body .wrapper .main-page .cars-bloks .cars .btnA:hover,
+body .wrapper .main-page .cars-bloks .cars .btnA:active {
+  background-color: green;
+  color: white;
+  -webkit-box-shadow: 0px 0px 11px rgb(80, 238, 198);
+          box-shadow: 0px 0px 11px rgb(80, 238, 198);
+  cursor: pointer;
+}
+body .wrapper .main-page .cars-bloks .cars .btnB {
+  color: red;
+  border-color: red;
+}
+body .wrapper .main-page .cars-bloks .cars .btnB:hover,
+body .wrapper .main-page .cars-bloks .cars .btnB:active {
+  background-color: red;
+  color: white;
+  -webkit-box-shadow: 0px 0px 11px rgb(241, 64, 79);
+          box-shadow: 0px 0px 11px rgb(241, 64, 79);
+  cursor: pointer;
+}
+body .wrapper .main-page .cars-bloks .finish {
+  position: relative;
+}
+body .wrapper .main-page .cars-bloks .finish img {
+  position: absolute;
+  position: absolute;
+  top: 38px;
+  right: 90px;
+}
+body .wrapper .main-page .navigation {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+body .wrapper .main-page .navigation .btn {
+  background: none;
+  color: aliceblue;
+  font-size: 10.5px;
+  border-radius: 10px;
+  padding: 0 10px;
+  margin-right: 15px;
+  font-family: "Bungee Inline", cursive;
+}
+body .wrapper .main-page .navigation .btn:hover,
+body .wrapper .main-page .navigation .btn:active {
+  background-color: white;
+  color: #223455;
+  -webkit-box-shadow: 0px 0px 11px white;
+          box-shadow: 0px 0px 11px white;
+  cursor: pointer;
+}
+body .win-window {
+  display: none;
+  position: fixed;
+  top: 200px;
+  left: 533px;
+  color: #f00;
+  font-size: 40px;
+  font-family: "Bungee Inline", cursive;
+  text-shadow: 5px 5px 1px #ffcb4f;
+}
