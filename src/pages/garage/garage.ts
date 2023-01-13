@@ -8,9 +8,6 @@ const enum GaragePageTypes {
 }
 
 export class GaragePage extends Page {
-  static TextObject = {
-    GarageTitle: 'Garage Page',
-  };
   private infoBar: infoBar;
   private CarBlock: CarBlock;
 
@@ -21,8 +18,6 @@ export class GaragePage extends Page {
   }
 
   render() {
-    const headerTitle = this.createHeaderTitle(GaragePage.TextObject.GarageTitle);
-    this.container.appendChild(headerTitle);
     this.container.appendChild(this.infoBar.render());
     this.container.appendChild(this.CarBlock.render());
     return this.container;

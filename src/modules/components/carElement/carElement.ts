@@ -8,7 +8,7 @@ export class CarElement extends Component {
   constructor(tagName: string, className: string, name: string, color: string) {
     super(tagName, className);
     this.name = name;
-    this.image = 'https://webpack.js.org/site-logo.1fcab817090e78435061.svg';
+    this.image = 'https://svgsilh.com/svg/151962.svg';
     this.color = color;
   }
 
@@ -17,6 +17,9 @@ export class CarElement extends Component {
     carImage.src = this.image;
     carImage.alt = this.name;
     carImage.style.backgroundColor = this.color;
+
+    carImage.style.width = '10rem';
+    carImage.style.height = '4rem';
 
     const carName = document.createElement('p');
     carName.innerText = this.name;

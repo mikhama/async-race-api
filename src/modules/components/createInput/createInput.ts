@@ -1,3 +1,4 @@
+import { API } from '../../api/api';
 import { InputField } from '../../templates/inputField';
 
 export class CreateInput extends InputField {
@@ -18,9 +19,7 @@ export class CreateInput extends InputField {
       const carName = this.input.value;
       const carColor = this.colorInput.value;
       const car = { name: carName, color: carColor };
-      const cars = JSON.parse(localStorage.getItem('cars') || '[]');
-      cars.push(car);
-      localStorage.setItem('cars', JSON.stringify(cars));
+      API.createCar(car);
     });
     return this.container;
   }
