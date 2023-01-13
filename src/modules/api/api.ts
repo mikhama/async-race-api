@@ -1,4 +1,5 @@
 import { Car, QueryParams } from 'types/types';
+import { getRandomCar } from '../utils/utils';
 
 export class API {
   private static BASE_URL: string = 'http://127.0.0.1:3000';
@@ -27,7 +28,7 @@ export class API {
 
     return car;
   };
-
+  
   static createCar = async (car: Car) => {
     const response = await fetch(`${API.BASE_URL}${API.Urls.garage}`, {
       method: 'POST',
@@ -37,9 +38,16 @@ export class API {
       body: JSON.stringify(car),
     });
     const newCar: Car = await response.json();
-
+    
     return newCar;
   };
+  
+  static createRandomCars = async (count: number) => {
+     for(let i = 0; i < count; i++) {
+       const car = getRandomCar();
+       await API.createCar(car);
+     }
+  }
 
   static updateCar = async (id: number, car: Car) => {
     const response = await fetch(`${API.BASE_URL}${API.Urls.garage}/${id}`, {
@@ -54,18 +62,15 @@ export class API {
     return updatedCar;
   };
 
-  static createRandomCars = async (count: number) => {
-     for(let i = 0; i < count; i++) {
-       const car = {
-         name: `Car ${i}`,
-         color: `Color ${i}`,
-       };
-       await API.createCar(car);
-     }
-  }
 
   static deleteCar = async (id: number) => {
     await fetch(`${API.BASE_URL}${API.Urls.garage}/${id}`, {
+      method: 'DELETE',
+    });
+  };
+
+  static deleteAllCars = async () => {
+    await fetch(`${API.BASE_URL}${API.Urls.garage}`, {
       method: 'DELETE',
     });
   };

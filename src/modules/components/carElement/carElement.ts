@@ -1,3 +1,4 @@
+import { CreatedEvents } from '../../events/events';
 import { API } from '../../api/api';
 import { storage } from '../../storage/storage';
 import { Component } from '../../templates/components';
@@ -26,8 +27,9 @@ export class CarElement extends Component {
     const remove = new Button('button', CarElementTypes.buttonRemove, 'Remove');
     remove.onClick(() => {
       API.deleteCar(+this.container.id);
-      this.container.remove();
+      window.dispatchEvent(CreatedEvents.updatePage);
     });
+
     const select = new Button('button', CarElementTypes.buttonSelect, 'Select');
     select.onClick(() => {
       storage.setSelectedCar(this.container.id);

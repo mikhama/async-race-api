@@ -1,4 +1,5 @@
-import { API } from 'src/modules/api/api';
+import { CreatedEvents } from '../../events/events';
+import { API } from '../../api/api';
 import { Component } from '../../templates/components';
 import { Button } from '../button/button';
 import { CreateInput } from '../createInput/createInput';
@@ -20,16 +21,27 @@ export class infoBar extends Component {
   }
 
   createButtons() {
-    const button = new Button('button', 'button', 'Create 100 random cars');
-    button.onClick(async () => {
+    const generateCars = new Button('button', 'button-generate-cars', 'GENERATE CARS');
+    generateCars.onClick(async () => {
       const carsAmount = 100;
       await API.createRandomCars(carsAmount);
+      window.dispatchEvent(CreatedEvents.updatePage);
     });
+
+    const clear = new Button('button', 'button-clear-cars', 'CLEAR');
+    clear.onClick(async () => {
+      await API.deleteAllCars();
+      window.dispatchEvent(CreatedEvents.updatePage);
+    });
+
+    this.container.append(generateCars.render());
+    this.container.append(clear.render());
   }
 
   render() {
     this.container.append(this.createInput.render());
     this.container.append(this.updateInput.render());
+    this.createButtons();
     return this.container;
   }
 }
