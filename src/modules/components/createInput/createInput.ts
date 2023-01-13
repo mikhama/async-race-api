@@ -1,3 +1,4 @@
+import { CreatedEvents } from '../../events/events';
 import { API } from '../../api/api';
 import { InputField } from '../../templates/inputField';
 
@@ -20,6 +21,11 @@ export class CreateInput extends InputField {
       const carColor = this.colorInput.value;
       const car = { name: carName, color: carColor };
       API.createCar(car);
+
+      this.input.value = '';
+      this.colorInput.value = '#000000';
+
+      window.dispatchEvent(CreatedEvents.updatePage);
     });
     return this.container;
   }

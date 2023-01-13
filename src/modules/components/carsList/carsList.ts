@@ -14,7 +14,7 @@ export class CarsList extends Component {
   }
   private renderCars() {
     this.cars.forEach((car) => {
-      const carHTML = new CarElement('div', CarsListTypes.CarsListType, car.name, car.color);
+      const carHTML = new CarElement('div', CarsListTypes.CarsListType, car.name, car.color, String(car.id));
       this.container.append(carHTML.render());
     });
   }

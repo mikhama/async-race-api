@@ -3,10 +3,13 @@ import { API } from '../../api/api';
 import { Component } from '../../templates/components';
 import { CarsList } from '../carsList/carsList';
 import { Button } from '../button/button';
+import { Events } from 'src/modules/events/events';
 
 export const enum CarBlockTypes {
   CarBlockType = 'cars-list',
   LimitType = '7',
+  PrevButtonType = 'prev-button',
+  NextButtonType = 'next-button',
 }
 
 export class CarBlock extends Component {
@@ -17,6 +20,11 @@ export class CarBlock extends Component {
     super(tagName, className);
     this.CarsList = new CarsList('div', CarBlockTypes.CarBlockType, []);
     this.total = null;
+
+    addEventListener(Events.updatePage, () => {
+      this.container.innerHTML = '';
+      this.buildCarsList();
+    });
   }
 
   private buildHeader() {
@@ -25,8 +33,7 @@ export class CarBlock extends Component {
     this.container.append(header);
   }
 
-  private buildCars = async () => {
-    // Предел на количество машин в гараже будет лежать в локальном хранилище
+  private buildCarsList = async () => {
     const page = storage.getPage();
 
     const { cars, total } = await API.getCars([
@@ -46,24 +53,24 @@ export class CarBlock extends Component {
     const pagination = document.createElement('div');
     pagination.classList.add('pagination');
 
-    const prevButton = new Button('button', 'prev', 'Prev');
+    const prevButton = new Button('button', CarBlockTypes.PrevButtonType, 'Prev');
     prevButton.onClick(() => {
       const page = storage.getPage();
       if (page && page !== '1') {
         storage.setPage((+page - 1).toString());
         this.container.innerHTML = '';
-        this.buildCars();
+        this.buildCarsList();
       }
     });
 
-    const nextButton = new Button('button', 'next', 'Next');
+    const nextButton = new Button('button', CarBlockTypes.NextButtonType, 'Next');
     nextButton.onClick(() => {
       const page = storage.getPage();
       const condition = page && +page * +CarBlockTypes.LimitType < Number(this.total);
       if (condition) {
         storage.setPage((+page + 1).toString());
         this.container.innerHTML = '';
-        this.buildCars();
+        this.buildCarsList();
       }
     });
 
@@ -73,7 +80,7 @@ export class CarBlock extends Component {
   };
 
   render() {
-    this.buildCars();
+    this.buildCarsList();
     // this.container.append(this.CarsList.render());
     return this.container;
   }

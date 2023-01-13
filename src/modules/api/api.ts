@@ -53,4 +53,20 @@ export class API {
 
     return updatedCar;
   };
+
+  static createRandomCars = async (count: number) => {
+     for(let i = 0; i < count; i++) {
+       const car = {
+         name: `Car ${i}`,
+         color: `Color ${i}`,
+       };
+       await API.createCar(car);
+     }
+  }
+
+  static deleteCar = async (id: number) => {
+    await fetch(`${API.BASE_URL}${API.Urls.garage}/${id}`, {
+      method: 'DELETE',
+    });
+  };
 }
