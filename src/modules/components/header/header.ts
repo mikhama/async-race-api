@@ -2,8 +2,8 @@ import { Component } from '../../templates/components';
 import { PageIds } from '../../../pages/app/app';
 
 const Buttons = [
-  { id: PageIds.GaragePage, text: 'Garage' },
-  { id: PageIds.WinnersPage, text: 'Winners' },
+  { id: PageIds.GaragePage, text: 'To Garage' },
+  { id: PageIds.WinnersPage, text: 'To Winners' },
 ];
 
 export class Header extends Component {
