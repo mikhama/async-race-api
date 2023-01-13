@@ -1,4 +1,4 @@
-import { Car } from 'types/types';
+import { Car, QueryParams } from 'types/types';
 
 export class API {
   private static BASE_URL: string = 'http://127.0.0.1:3000';
@@ -9,14 +9,12 @@ export class API {
     Total: 'X-Total-Count',
   };
 
-  private static queryParamsStringify(params: Record<string, string | number>) {
-    return Object.entries(params)
-      .map(([key, value]) => `${key}=${value}`)
-      .join('&');
+  private static queryParamsStringify(params: QueryParams[] = []) {
+    return params ? `?${params.map(({ key, value }) => `${key}=${value}`).join('&')}` : '';
   }
 
-  static getCars = async (queryParams: Record<string, string | number>) => {
-    const response = await fetch(`${API.BASE_URL}${API.Urls.garage}?${API.queryParamsStringify(queryParams)}`);
+  static getCars = async (queryParams: QueryParams[]) => {
+    const response = await fetch(`${API.BASE_URL}${API.Urls.garage}${API.queryParamsStringify(queryParams)}`);
     const cars: Car[] = await response.json();
     const total = response.headers.get(API.Headers.Total);
 
@@ -41,7 +39,7 @@ export class API {
     const newCar: Car = await response.json();
 
     return newCar;
-  }
+  };
 
   static updateCar = async (id: number, car: Car) => {
     const response = await fetch(`${API.BASE_URL}${API.Urls.garage}/${id}`, {
@@ -54,5 +52,5 @@ export class API {
     const updatedCar: Car = await response.json();
 
     return updatedCar;
-  }
+  };
 }

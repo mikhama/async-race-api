@@ -25,7 +25,7 @@ export class App {
     let page: Page | null = null;
 
     if (idPage === PageIds.GaragePage) {
-      page = new GaragePage(idPage);
+      page = new GaragePage(idPage) || null;
     } else if (idPage === PageIds.WinnersPage) {
       page = new WinnersPage(idPage);
     } else {
