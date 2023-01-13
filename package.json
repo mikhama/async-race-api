@@ -4,11 +4,30 @@
   "description": "Fun with promises",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "webpack-dev-server --mode development --open"
   },
   "author": "mikhama",
   "license": "MIT",
   "devDependencies": {
-    "json-server": "^0.16.3"
+    "@typescript-eslint/eslint-plugin": "^5.48.1",
+    "eslint": "^8.31.0",
+    "eslint-config-standard-with-typescript": "^27.0.1",
+    "eslint-plugin-import": "^2.27.4",
+    "eslint-plugin-n": "^15.6.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "html-webpack-plugin": "^5.5.0",
+    "json-server": "^0.16.3",
+    "style-loader": "^3.3.1",
+    "ts-loader": "^9.4.2",
+    "typescript": "^4.9.4",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1",
+    "webpack-merge": "^5.8.0"
+  },
+  "dependencies": {
+    "css-loader": "^6.7.3",
+    "prettier": "^2.8.2"
   }
 }
