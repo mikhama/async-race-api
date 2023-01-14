@@ -1,5 +1,6 @@
 // import { Car } from 'types/types';
 import { CreatedEvents } from '../events/events';
+
 class LocalStorage {
   private Initial = {
     page: '1',
@@ -48,6 +49,10 @@ class LocalStorage {
 
   setPage(page: string) {
     return localStorage.setItem(this.Keys.page, page);
+  }
+
+  setDefaultPage() {
+    localStorage.setItem(this.Keys.page, this.Initial.page);
   }
 
   clear() {

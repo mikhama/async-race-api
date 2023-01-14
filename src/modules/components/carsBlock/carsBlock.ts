@@ -30,7 +30,10 @@ export class CarBlock extends Component {
   private buildHeader() {
     const header = document.createElement('h1');
     header.innerText = `Garage (${this.total ? this.total : '0'})`;
+    const counter = document.createElement('h2');
+    counter.innerText = `Page: ${storage.getPage()}`;
     this.container.append(header);
+    this.container.append(counter);
   }
 
   private buildCarsList = async () => {

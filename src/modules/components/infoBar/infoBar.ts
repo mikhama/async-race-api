@@ -4,6 +4,7 @@ import { Component } from '../../templates/components';
 import { Button } from '../button/button';
 import { CreateInput } from '../createInput/createInput';
 import { UpdateInput } from '../updateInput/updateInput';
+import { storage } from '../../storage/storage';
 
 export const enum InputTypes {
   UpdateType = 'update-input',
@@ -31,7 +32,10 @@ export class infoBar extends Component {
     const clear = new Button('button', 'button-clear-cars', 'CLEAR');
     clear.onClick(async () => {
       await API.deleteAllCars();
+      await API.getCars([]);
+
       window.dispatchEvent(CreatedEvents.updatePage);
+      storage.setDefaultPage();
     });
 
     this.container.append(generateCars.render());

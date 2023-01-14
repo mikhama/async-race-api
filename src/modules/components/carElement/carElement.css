@@ -1,0 +1,18 @@
+.cars-element {
+  display: flex;
+  /* position: relative; */
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  border-bottom: 1px dashed rgb(0, 0, 0);
+}
+
+.cars-element .car-header {
+  display: flex;
+  flex-direction: row;
+}
+
+.cars-element .car-footer {
+  display: flex;
+  flex-direction: row;
+}
