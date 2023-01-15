@@ -22,6 +22,8 @@ export class App {
     const oldPage = document.getElementById(App.defaultPageId) as HTMLElement;
     if (oldPage) oldPage.remove();
 
+    idPage = idPage || App.defaultPageId;
+
     let page: Page | null = null;
 
     if (idPage === PageIds.GaragePage) {

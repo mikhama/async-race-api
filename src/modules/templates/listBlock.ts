@@ -1,5 +1,4 @@
 import { Button } from '../components/button/button';
-import { storage } from '../storage/storage';
 import { Component } from './components';
 
 export const enum ListBlockTypes {
@@ -21,30 +20,20 @@ export class ListBlock extends Component {
     this.container.append(counter);
   }
 
-  protected buildPaginationButtons = (limit: number, total: number, build: () => void) => {
+  protected buildPaginationButtons = (
+    isPrevDisabled: boolean,
+    isNextDisabled: boolean,
+    prevClick: () => void,
+    nextClick: () => void
+  ) => {
     const pagination = document.createElement('div');
     pagination.classList.add('pagination');
 
-    const prevButton = new Button('button', ListBlockTypes.prevButtonType, 'Prev');
-    prevButton.onClick(() => {
-      const page = storage.getCarPage();
-      if (page && page !== '1') {
-        storage.setCarPage((+page - 1).toString());
-        this.container.innerHTML = '';
-        build();
-      }
-    });
+    const prevButton = new Button('button', ListBlockTypes.prevButtonType, 'PREV', isPrevDisabled);
+    prevButton.onClick(prevClick);
 
-    const nextButton = new Button('button', ListBlockTypes.nextButtonType, 'Next');
-    nextButton.onClick(() => {
-      const page = storage.getCarPage();
-      const condition = page && +page * limit < Number(total);
-      if (condition) {
-        storage.setCarPage((+page + 1).toString());
-        this.container.innerHTML = '';
-        build();
-      }
-    });
+    const nextButton = new Button('button', ListBlockTypes.nextButtonType, 'NEXT', isNextDisabled);
+    nextButton.onClick(nextClick);
 
     pagination.append(prevButton.render());
     pagination.append(nextButton.render());

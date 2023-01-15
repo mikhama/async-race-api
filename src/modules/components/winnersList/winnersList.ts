@@ -1,3 +1,4 @@
+import { API } from '../../api/api';
 import { WinnerCar } from 'types/types';
 import { Component } from '../../templates/components';
 import { WinnerElement } from '../winnerElement/winnerElement';
@@ -14,8 +15,17 @@ export class WinnersList extends Component {
   }
 
   private buildWinnersList() {
-    this.winners.forEach((winner) => {
-      const carHTML = new WinnerElement('div', WinnersListTypes.winnersListClass, winner.time, winner.wins);
+    this.winners.forEach(async (winner) => {
+      const car = await API.getCar(winner.id || 0);
+      const carHTML = new WinnerElement(
+        'div',
+        WinnersListTypes.winnersListClass,
+        winner.time,
+        winner.wins,
+        car.name,
+        car.color,
+        winner.id || 0
+      );
       this.container.append(carHTML.render());
     });
   }

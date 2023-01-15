@@ -54,7 +54,7 @@ export class WinnersBlock extends ListBlock {
     ]);
 
     this.total = total ? total : this.total;
-    this.buildHeader('Garage', this.total, currentPage);
+    this.buildHeader('Winners', this.total, currentPage);
 
     const winnersListHeader = new WinnersListHeader(
       'div',
@@ -68,7 +68,34 @@ export class WinnersBlock extends ListBlock {
     this.winnersList = new WinnersList('div', WinnersBlockTypes.winnersBlockClass, winners);
     this.container.append(this.winnersList.render());
 
-    this.buildPaginationButtons(+WinnersBlockTypes.limitType, +this.total, this.buildWinnersList);
+    const maxPage = Math.ceil(Number(this.total) / Number(WinnersBlockTypes.limitType));
+    const minPage = 1;
+
+    let isPrevDisabled = page ? +page === minPage : true;
+    let isNextDisabled = page ? +page === maxPage : false;
+
+    const prevClick = () => {
+      const page = storage.getWinnerPage();
+      if (page && +page === minPage) isPrevDisabled = true;
+      if (page && page !== '1') {
+        storage.setCarPage((+page - 1).toString());
+        this.container.innerHTML = '';
+        this.buildWinnersList();
+      }
+    };
+
+    const nextClick = () => {
+      const page = storage.getCarPage();
+      if (page && +page === maxPage) isNextDisabled = true;
+      const condition = page && +page * +WinnersBlockTypes.limitType < Number(total);
+      if (condition) {
+        storage.setWinnerPage((+page + 1).toString());
+        this.container.innerHTML = '';
+        this.buildWinnersList();
+      }
+    };
+
+    this.buildPaginationButtons(isPrevDisabled, isNextDisabled, prevClick, nextClick);
   };
 
   render() {

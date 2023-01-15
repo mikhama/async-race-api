@@ -15,6 +15,8 @@ export interface WinnerCar {
   time: number;
 }
 
+export type FullCar = Car & WinnerCar; 
+
 export interface QueryParams {
   key: string;
   value: string | number;

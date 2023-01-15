@@ -41,7 +41,34 @@ export class CarBlock extends ListBlock {
     this.CarsList = new CarsList('div', CarBlockTypes.CarBlockClass, cars);
     this.container.append(this.CarsList.render());
 
-    this.buildPaginationButtons(+CarBlockTypes.LimitType, +this.total, this.buildCarsList);
+    const maxPage = Math.ceil(Number(this.total) / Number(CarBlockTypes.LimitType));
+    const minPage = 1;
+
+    let isPrevDisabled = page ? +page === minPage : true;
+    let isNextDisabled = page ? +page === maxPage : false;
+
+    const prevClick = () => {
+      const page = storage.getCarPage();
+      if (page && +page === minPage) isPrevDisabled = true;
+      if (page && page !== '1') {
+        storage.setCarPage((+page - 1).toString());
+        this.container.innerHTML = '';
+        this.buildCarsList();
+      }
+    };
+
+    const nextClick = () => {
+      const page = storage.getCarPage();
+      if (page && +page === maxPage) isNextDisabled = true;
+      const condition = page && +page * +CarBlockTypes.LimitType < Number(total);
+      if (condition) {
+        storage.setCarPage((+page + 1).toString());
+        this.container.innerHTML = '';
+        this.buildCarsList();
+      }
+    };
+
+    this.buildPaginationButtons(isPrevDisabled, isNextDisabled, prevClick, nextClick);
   };
 
   render() {
