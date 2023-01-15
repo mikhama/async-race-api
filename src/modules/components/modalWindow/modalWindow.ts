@@ -12,7 +12,7 @@ export class ModalWindow extends Component {
   constructor(tagName: string, className: string) {
     super(tagName, className);
 
-    addEventListener(Events.storage, () => {
+    addEventListener(Events.finish, () => {
       const car = storage.getRaceCars();
       if (typeof car === 'string') return;
       this.setWindow(car);
@@ -26,8 +26,6 @@ export class ModalWindow extends Component {
     setTimeout(() => {
       this.container.classList.remove(ModalWindowTypes.modalWindowShow);
     }, 3000);
-
-    storage.setDefaultRaceCars();
   }
 
   render() {

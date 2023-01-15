@@ -43,7 +43,9 @@ class LocalStorage {
   }
 
   getRaceCars() {
-    return JSON.parse(localStorage.getItem(this.Keys.race) as string) as string | FinishCar;
+    const item = localStorage.getItem(this.Keys.race) as string;
+    if (item === this.Initial.race) return item;
+    return JSON.parse(item) as string | FinishCar;
   }
 
   getSelectedCar() {

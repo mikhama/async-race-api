@@ -67,7 +67,7 @@ export class CarElement extends Component {
     if (typeof storage.getRaceCars() !== 'string') return;
 
     storage.setRaceCars({ name: this.name, time });
-    window.dispatchEvent(CreatedEvents.storage);
+    window.dispatchEvent(CreatedEvents.finish);
     const winner = await API.getWinner(+this.container.id);
 
     if (winner && winner.wins) {

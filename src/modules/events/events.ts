@@ -4,6 +4,7 @@ export const enum Events {
   startRace = 'startRace',
   resetRace = 'resetRace',
   selectCar = 'selectCar',
+  finish = 'finish',
 }
 
 export const CreatedEvents = {
@@ -12,4 +13,5 @@ export const CreatedEvents = {
   startRace: new Event(Events.startRace),
   resetRace: new Event(Events.resetRace),
   selectCar: new Event(Events.selectCar),
+  finish: new Event(Events.finish),
 };
