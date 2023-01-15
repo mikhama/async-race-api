@@ -12,14 +12,14 @@ export class CarsList extends Component {
     super(tagName, className);
     this.cars = cars;
   }
-  private renderCars() {
+  private buildCarsList() {
     this.cars.forEach((car) => {
       const carHTML = new CarElement('div', CarsListTypes.CarsListType, car.name, car.color, String(car.id));
       this.container.append(carHTML.render());
     });
   }
   render() {
-    this.renderCars();
+    this.buildCarsList();
     return this.container;
   }
 }

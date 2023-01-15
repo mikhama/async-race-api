@@ -10,6 +10,7 @@ export const enum CarElementTypes {
   buttonRemove = 'button-car-remove',
   buttonSelect = 'button-car-select',
   carImage = 'car-image',
+  carName = 'car-name',
   carHeader = 'car-header',
   carFooter = 'car-footer',
   startButton = 'button-car-start',
@@ -113,6 +114,7 @@ export class CarElement extends Component {
 
   private buildCarName = () => {
     const carName = document.createElement('p');
+    carName.classList.add(CarElementTypes.carName);
     carName.innerText = this.name;
     return carName;
   };
@@ -150,6 +152,7 @@ export class CarElement extends Component {
     const driveHTML = this.startButton.render();
 
     addEventListener(Events.startRace, () => {
+      stopHTML.click();
       driveHTML.click();
     });
 

@@ -4,7 +4,8 @@ import { CreatedEvents } from '../events/events';
 
 class LocalStorage {
   private Initial = {
-    page: '1',
+    carPage: '1',
+    winnerPage: '1',
     selectedCar: '0',
     race: 'start',
   };
@@ -12,30 +13,19 @@ class LocalStorage {
   private Keys = {
     cars: 'cars',
     race: 'race',
-    page: 'page',
+    carPage: 'page',
+    winnerPage: 'winnerPage',
     selectedCar: 'selectedCar',
   };
 
   constructor() {
-    if (!localStorage.getItem(this.Keys.page)) localStorage.setItem(this.Keys.page, this.Initial.page);
+    if (!localStorage.getItem(this.Keys.carPage)) localStorage.setItem(this.Keys.carPage, this.Initial.carPage);
+    if (!localStorage.getItem(this.Keys.winnerPage)) localStorage.setItem(this.Keys.winnerPage, this.Initial.winnerPage);
     localStorage.setItem(this.Keys.selectedCar, this.Initial.selectedCar);
   }
-  // static getCars() {
-  //   return JSON.parse(localStorage.getItem(Storage.Keys.Car) as string) as Car;
-  // }
-
-  // static setCar(value: Car) {
-  //   const string = JSON.stringify(value);
-  //   localStorage.setItem(Storage.Keys.Car, string);
-  // }
-
-  // static removeCars() {
-  //   localStorage.removeItem(Storage.Keys.Car);
-  // }
 
   setRaceCars(data: string | FinishCar = this.Initial.race) {
     localStorage.setItem(this.Keys.race, JSON.stringify(data));
-    // window.dispatchEvent(CreatedEvents.storage);
   }
 
   setDefaultRaceCars() {
@@ -61,16 +51,28 @@ class LocalStorage {
     localStorage.setItem(this.Keys.selectedCar, this.Initial.selectedCar);
   }
 
-  getPage() {
-    return localStorage.getItem(this.Keys.page);
+  getCarPage() {
+    return localStorage.getItem(this.Keys.carPage);
   }
 
-  setPage(page: string) {
-    return localStorage.setItem(this.Keys.page, page);
+  setCarPage(page: string) {
+    return localStorage.setItem(this.Keys.carPage, page);
   }
 
-  setDefaultPage() {
-    localStorage.setItem(this.Keys.page, this.Initial.page);
+  setDefaultCarPage() {
+    localStorage.setItem(this.Keys.carPage, this.Initial.carPage);
+  }
+
+  getWinnerPage() {
+    return localStorage.getItem(this.Keys.winnerPage);
+  }
+
+  setWinnerPage(page: string) {
+    return localStorage.setItem(this.Keys.winnerPage, page);
+  }
+
+  setDefaultWinnerPage() {
+    localStorage.setItem(this.Keys.winnerPage, this.Initial.winnerPage);
   }
 
   clear() {

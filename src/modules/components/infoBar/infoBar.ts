@@ -50,7 +50,7 @@ export class infoBar extends Component {
       await API.getCars([]);
 
       window.dispatchEvent(CreatedEvents.updatePage);
-      storage.setDefaultPage();
+      storage.setDefaultCarPage();
     });
 
     this.container.append(race.render());

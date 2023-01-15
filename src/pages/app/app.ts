@@ -39,15 +39,17 @@ export class App {
     }
   }
 
+  private getHashId = () => window.location.hash.slice(1);
+
   private enableRouteChange() {
     window.addEventListener('hashchange', () => {
-      const idPage = window.location.hash.slice(1);
+      const idPage = this.getHashId();
       App.renderNewPage(idPage);
     });
   }
 
   run() {
-    App.renderNewPage(PageIds.GaragePage);
+    App.renderNewPage(this.getHashId());
     App.container.prepend(this.header.render());
     this.enableRouteChange();
   }

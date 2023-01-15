@@ -1,25 +1,24 @@
 import { storage } from '../../storage/storage';
 import { API } from '../../api/api';
-import { Component } from '../../templates/components';
 import { CarsList } from '../carsList/carsList';
-import { Button } from '../button/button';
-import { Events } from 'src/modules/events/events';
+import { Events } from '../../events/events';
+import { ListBlock } from '../../templates/listBlock';
 
 export const enum CarBlockTypes {
-  CarBlockType = 'cars-list',
+  CarBlockClass = 'cars-list',
   LimitType = '7',
   PrevButtonType = 'prev-button',
   NextButtonType = 'next-button',
 }
 
-export class CarBlock extends Component {
+export class CarBlock extends ListBlock {
   private CarsList: CarsList;
-  private total: string | null;
+  private total: string;
 
   constructor(tagName: string, className: string) {
     super(tagName, className);
-    this.CarsList = new CarsList('div', CarBlockTypes.CarBlockType, []);
-    this.total = null;
+    this.CarsList = new CarsList('div', CarBlockTypes.CarBlockClass, []);
+    this.total = '0';
 
     addEventListener(Events.updatePage, () => {
       this.container.innerHTML = '';
@@ -27,64 +26,26 @@ export class CarBlock extends Component {
     });
   }
 
-  private buildHeader() {
-    const header = document.createElement('h1');
-    header.innerText = `Garage (${this.total ? this.total : '0'})`;
-    const counter = document.createElement('h2');
-    counter.innerText = `Page: ${storage.getPage()}`;
-    this.container.append(header);
-    this.container.append(counter);
-  }
-
   private buildCarsList = async () => {
-    const page = storage.getPage();
+    const page = storage.getCarPage();
+    const currentPage = page ? page : '1';
 
     const { cars, total } = await API.getCars([
-      { key: '_page', value: page ? page : '1' },
+      { key: '_page', value: currentPage },
       { key: '_limit', value: CarBlockTypes.LimitType },
     ]);
 
-    this.total = total;
-    this.buildHeader();
+    this.total = total ? total : this.total;
+    this.buildHeader('Garage', this.total, currentPage);
 
-    this.CarsList = new CarsList('div', CarBlockTypes.CarBlockType, cars);
+    this.CarsList = new CarsList('div', CarBlockTypes.CarBlockClass, cars);
     this.container.append(this.CarsList.render());
-    this.buildPaginationButtons();
-  };
 
-  private buildPaginationButtons = () => {
-    const pagination = document.createElement('div');
-    pagination.classList.add('pagination');
-
-    const prevButton = new Button('button', CarBlockTypes.PrevButtonType, 'Prev');
-    prevButton.onClick(() => {
-      const page = storage.getPage();
-      if (page && page !== '1') {
-        storage.setPage((+page - 1).toString());
-        this.container.innerHTML = '';
-        this.buildCarsList();
-      }
-    });
-
-    const nextButton = new Button('button', CarBlockTypes.NextButtonType, 'Next');
-    nextButton.onClick(() => {
-      const page = storage.getPage();
-      const condition = page && +page * +CarBlockTypes.LimitType < Number(this.total);
-      if (condition) {
-        storage.setPage((+page + 1).toString());
-        this.container.innerHTML = '';
-        this.buildCarsList();
-      }
-    });
-
-    pagination.append(prevButton.render());
-    pagination.append(nextButton.render());
-    this.container.append(pagination);
+    this.buildPaginationButtons(+CarBlockTypes.LimitType, +this.total, this.buildCarsList);
   };
 
   render() {
     this.buildCarsList();
-    // this.container.append(this.CarsList.render());
     return this.container;
   }
 }

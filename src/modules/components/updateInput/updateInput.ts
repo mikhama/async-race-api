@@ -1,7 +1,9 @@
-import { CreatedEvents } from '../../events/events';
+// import { CreatedEvents } from '../../events/events';
 import { API } from '../../api/api';
 import { storage } from '../../storage/storage';
 import { InputField } from '../../templates/inputField';
+import { Car } from 'types/types';
+import { CarElementTypes } from '../carElement/carElement';
 
 export class UpdateInput extends InputField {
   static TextObject = {
@@ -30,6 +32,14 @@ export class UpdateInput extends InputField {
     });
   }
 
+  private changeUpdatedCar(car: Car) {
+    const carName = document.querySelector(`.${CarElementTypes.carName}`) as HTMLElement;
+    const carImage = document.querySelector(`.${CarElementTypes.carImage}`) as HTMLElement;
+
+    carName.innerHTML = car.name.trim();
+    carImage.getElementsByTagName('g')[0].setAttribute('fill', car.color);
+  }
+
   render() {
     this.container.append(this.input);
     this.container.append(this.colorInput);
@@ -38,16 +48,17 @@ export class UpdateInput extends InputField {
     this.button.addEventListener('click', async () => {
       const carName = this.input.value;
       const carColor = this.colorInput.value;
-      const car = { name: carName, color: carColor };
+      const car = { name: carName.trim(), color: carColor };
       await API.updateCar(+this.id, car);
+
+      this.changeUpdatedCar(car);
+
       storage.setDefaultSelectedCar();
 
       this.input.value = '';
       this.colorInput.value = '#000000';
 
       this.button.disabled = true;
-
-      window.dispatchEvent(CreatedEvents.updatePage);
     });
 
     return this.container;
