@@ -4,7 +4,7 @@ import { InputField } from '../../templates/inputField';
 
 export class CreateInput extends InputField {
   static TextObject = {
-    ButtonContent: 'Create car',
+    ButtonContent: 'CREATE CAR',
   };
 
   constructor(tagName: string, className: string) {

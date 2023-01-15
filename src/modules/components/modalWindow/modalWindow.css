@@ -1,0 +1,12 @@
+.modal-window {
+  display: none;
+  /* display: block; */
+  position: absolute;
+  top: 45%;
+  left: 38%;
+  font-size: 3rem;
+}
+
+.modal-window-show {
+  display: block;
+}

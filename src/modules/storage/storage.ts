@@ -1,14 +1,17 @@
 // import { Car } from 'types/types';
+import { FinishCar } from 'types/types';
 import { CreatedEvents } from '../events/events';
 
 class LocalStorage {
   private Initial = {
     page: '1',
     selectedCar: '0',
+    race: 'start',
   };
 
   private Keys = {
     cars: 'cars',
+    race: 'race',
     page: 'page',
     selectedCar: 'selectedCar',
   };
@@ -29,6 +32,19 @@ class LocalStorage {
   // static removeCars() {
   //   localStorage.removeItem(Storage.Keys.Car);
   // }
+
+  setRaceCars(data: string | FinishCar = this.Initial.race) {
+    localStorage.setItem(this.Keys.race, JSON.stringify(data));
+    // window.dispatchEvent(CreatedEvents.storage);
+  }
+
+  setDefaultRaceCars() {
+    localStorage.setItem(this.Keys.race, this.Initial.race);
+  }
+
+  getRaceCars() {
+    return JSON.parse(localStorage.getItem(this.Keys.race) as string) as string | FinishCar;
+  }
 
   getSelectedCar() {
     return JSON.parse(localStorage.getItem(this.Keys.selectedCar) as string) as string;

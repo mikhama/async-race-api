@@ -5,26 +5,28 @@ import { InputField } from '../../templates/inputField';
 
 export class UpdateInput extends InputField {
   static TextObject = {
-    ButtonContent: 'Update car',
+    ButtonContent: 'UPDATE CAR',
   };
-  private id: string = '0';
+  private id: number = 0;
 
   constructor(tagName: string, className: string) {
     super(tagName, className);
     this.button.innerHTML = UpdateInput.TextObject.ButtonContent;
+    this.button.disabled = true;
     this.selectElement();
   }
 
   selectElement() {
     addEventListener('storage', async () => {
-      const id = storage.getSelectedCar();
-      if (id !== '0') {
+      const id = +storage.getSelectedCar();
+      if (id) {
+        console.log('id', id, 'this.id', this.id);
         this.id = id;
-        const car = await API.getCar(+id);
+        const car = await API.getCar(id);
         this.input.value = car.name;
         this.colorInput.value = car.color;
+        this.button.disabled = false;
       }
-      console.log(this.id);
     });
   }
 
@@ -32,6 +34,7 @@ export class UpdateInput extends InputField {
     this.container.append(this.input);
     this.container.append(this.colorInput);
     this.container.append(this.button);
+
     this.button.addEventListener('click', async () => {
       const carName = this.input.value;
       const carColor = this.colorInput.value;
@@ -42,8 +45,11 @@ export class UpdateInput extends InputField {
       this.input.value = '';
       this.colorInput.value = '#000000';
 
+      this.button.disabled = true;
+
       window.dispatchEvent(CreatedEvents.updatePage);
     });
+
     return this.container;
   }
 }

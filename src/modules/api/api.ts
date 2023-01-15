@@ -1,4 +1,4 @@
-import { Car, Engine, QueryParams, SwitchEngine } from 'types/types';
+import { Car, Engine, QueryParams, SwitchEngine, WinnerCar } from 'types/types';
 import { getRandomCar } from '../utils/utils';
 
 export class API {
@@ -12,6 +12,7 @@ export class API {
   private static Urls = {
     garage: '/garage',
     engine: '/engine',
+    winners: '/winners',
   };
   private static Headers = {
     Total: 'X-Total-Count',
@@ -99,4 +100,51 @@ export class API {
       return { success: false };
     }
   };
+
+  static getWinners = async (queryParams: QueryParams[]) => {
+    const response = await fetch(`${API.BASE_URL}${API.Urls.winners}${API.queryParamsStringify(queryParams)}`);
+    const winners: WinnerCar[] = await response.json();
+    const total = response.headers.get(API.Headers.Total);
+
+    return { winners, total };
+  };
+
+  static getWinner = async (id: number) => {
+    const response = await fetch(`${API.BASE_URL}${API.Urls.winners}/${id}`);
+    const winner: WinnerCar = await response.json();
+
+    return winner;
+  }
+
+  static createWinner = async (winner: WinnerCar) => {
+    const response = await fetch(`${API.BASE_URL}${API.Urls.winners}`, {
+      method: API.Methods.POST,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(winner),
+    });
+    const newWinner: WinnerCar = await response.json();
+
+    return newWinner;
+  }
+
+  static updateWinner = async (id: number, winner: WinnerCar) => {
+    const response = await fetch(`${API.BASE_URL}${API.Urls.winners}/${id}`, {
+      method: API.Methods.PATCH,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(winner),
+    });
+    const updatedWinner: WinnerCar = await response.json();
+
+    return updatedWinner;
+  }
+
+  static deleteWinner = async (id: number) => {
+    await fetch(`${API.BASE_URL}${API.Urls.winners}/${id}`, {
+      method: API.Methods.DELETE,
+    });
+  }
 }

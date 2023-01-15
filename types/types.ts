@@ -4,6 +4,17 @@ export interface Car {
   color: string;
 }
 
+export interface FinishCar {
+  name: string;
+  time: number;
+}
+
+export interface WinnerCar {
+  id?: number;
+  wins: number;
+  time: number;
+}
+
 export interface QueryParams {
   key: string;
   value: string | number;

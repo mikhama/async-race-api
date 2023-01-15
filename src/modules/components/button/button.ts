@@ -10,6 +10,10 @@ export class Button extends Component {
     }
   }
 
+  toggleDisabledStatus() {
+    (<HTMLButtonElement>this.container).disabled = !(<HTMLButtonElement>this.container).disabled;
+  }
+
   onClick(callback: () => void) {
     this.container.addEventListener('click', callback);
   }

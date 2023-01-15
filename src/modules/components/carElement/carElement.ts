@@ -1,4 +1,4 @@
-import { CreatedEvents } from '../../events/events';
+import { CreatedEvents, Events } from '../../events/events';
 import { API } from '../../api/api';
 import { storage } from '../../storage/storage';
 import { Component } from '../../templates/components';
@@ -20,6 +20,8 @@ export const enum CarElementTypes {
 export class CarElement extends Component {
   private name: string;
   private color: string;
+  private stopButton: Button;
+  private startButton: Button;
   private defaultPosition: number = 0;
   private image: HTMLDivElement | null = null;
   private animationId: number = 0;
@@ -29,6 +31,8 @@ export class CarElement extends Component {
     this.name = name;
     this.color = color;
     this.container.id = id;
+    this.startButton = new Button('button', CarElementTypes.startButton, 'A');
+    this.stopButton = new Button('button', CarElementTypes.stopButton, 'B', true);
   }
 
   private carAnimation = async (duration: number) => {
@@ -37,6 +41,7 @@ export class CarElement extends Component {
     const prevSibling = image?.previousElementSibling as HTMLDivElement;
     const fullRoad = window.innerWidth - 2 * prevSibling.offsetWidth - imageOffsetWidth;
     const start = performance.now();
+    const timer = Date.now();
 
     const animate = (time: number) => {
       let timeFraction = (time - start) / duration;
@@ -49,22 +54,40 @@ export class CarElement extends Component {
 
       if (timeFraction < 1) {
         this.animationId = window.requestAnimationFrame(animate);
+      } else {
+        const time = (Date.now() - timer) / 1000;
+        this.checkWinner(time);
       }
     };
 
     this.animationId = window.requestAnimationFrame(animate);
   };
 
+  private checkWinner = async (time: number) => {
+    if (typeof storage.getRaceCars() !== 'string') return;
+
+    storage.setRaceCars({ name: this.name, time });
+    window.dispatchEvent(CreatedEvents.storage);
+    const winner = await API.getWinner(+this.container.id);
+
+    if (winner && winner.wins) {
+      await API.updateWinner(+this.container.id, { wins: winner.wins + 1, time });
+    } else {
+      await API.createWinner({ wins: 1, time });
+    }
+  };
+
   private buildCarButtons() {
-    const remove = new Button('button', CarElementTypes.buttonRemove, 'Remove');
+    const remove = new Button('button', CarElementTypes.buttonRemove, 'REMOVE');
     remove.onClick(() => {
       API.deleteCar(+this.container.id);
       window.dispatchEvent(CreatedEvents.updatePage);
     });
 
-    const select = new Button('button', CarElementTypes.buttonSelect, 'Select');
+    const select = new Button('button', CarElementTypes.buttonSelect, 'SELECT');
     select.onClick(() => {
       storage.setSelectedCar(this.container.id);
+      window.dispatchEvent(CreatedEvents.selectCar);
     });
 
     const header = document.createElement('div');
@@ -75,10 +98,8 @@ export class CarElement extends Component {
   }
 
   private changeButtonsStatus() {
-    const start = this.container.getElementsByClassName(CarElementTypes.startButton)[0] as HTMLButtonElement;
-    const stop = this.container.getElementsByClassName(CarElementTypes.stopButton)[0] as HTMLButtonElement;
-    start.disabled = !start.disabled;
-    stop.disabled = !stop.disabled;
+    this.startButton.toggleDisabledStatus();
+    this.stopButton.toggleDisabledStatus();
   }
 
   private buildCarImage() {
@@ -97,8 +118,7 @@ export class CarElement extends Component {
   };
 
   private buildCartDriveButtons() {
-    const drive = new Button('button', CarElementTypes.startButton, 'A');
-    drive.onClick(async () => {
+    this.startButton.onClick(async () => {
       this.changeButtonsStatus();
       const { velocity, distance } = await API.carEngine([
         { key: 'id', value: this.container.id },
@@ -115,8 +135,7 @@ export class CarElement extends Component {
       if (!success) window.cancelAnimationFrame(this.animationId);
     });
 
-    const stop = new Button('button', CarElementTypes.stopButton, 'B', true);
-    stop.onClick(() => {
+    this.stopButton.onClick(() => {
       this.changeButtonsStatus();
       API.carEngine([
         { key: 'id', value: this.container.id },
@@ -127,9 +146,20 @@ export class CarElement extends Component {
       if (this.image) this.image.style.marginLeft = this.defaultPosition + 'px';
     });
 
+    const stopHTML = this.stopButton.render();
+    const driveHTML = this.startButton.render();
+
+    addEventListener(Events.startRace, () => {
+      driveHTML.click();
+    });
+
+    addEventListener(Events.resetRace, () => {
+      stopHTML.click();
+    });
+
     const buttons = document.createElement('div');
-    buttons.append(drive.render());
-    buttons.append(stop.render());
+    buttons.append(driveHTML);
+    buttons.append(stopHTML);
     return buttons;
   }
 
