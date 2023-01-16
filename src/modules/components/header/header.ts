@@ -1,6 +1,7 @@
 import { Component } from '../../templates/components';
 import { PageTypes } from '../../../pages/app/app';
 import { Button } from '../button/button';
+import './header.css';
 
 const Buttons = [
   { id: PageTypes.garagePage, text: 'GARAGE' },

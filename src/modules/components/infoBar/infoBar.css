@@ -1,0 +1,35 @@
+.info-bar {
+  height: 8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.info-bar .buttons-container {
+  width: 17rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.info-bar .buttons-container .button {
+  background-color: rgb(130, 130, 15);
+}
+
+.info-bar .input-field {
+  width: 23rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.info-bar .input-field input[type='text'] {
+  width: 10rem;
+  height: 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 0 0.5rem;
+}
+
+.info-bar .input-field .button {
+  background-color: rgb(30, 101, 30);
+}

@@ -23,7 +23,7 @@ export class CarElement extends Component {
   private color: string;
   private stopButton: Button;
   private startButton: Button;
-  private defaultPosition: number = 0;
+  private defaultPosition: number = 100;
   private image: HTMLDivElement | null = null;
   private animationId: number = 0;
 
@@ -42,11 +42,11 @@ export class CarElement extends Component {
     const image = this.image;
     const imageOffsetWidth = image ? image.offsetWidth : 0;
     const prevSibling = image?.previousElementSibling as HTMLDivElement;
-    const fullRoad = window.innerWidth - 2 * prevSibling.offsetWidth - imageOffsetWidth;
+    const fullRoad = window.innerWidth - 2.5 * prevSibling.offsetWidth - imageOffsetWidth;
     const start = performance.now();
     const timer = Date.now();
 
-    if (image) image.style.marginLeft = this.defaultPosition + 'px';
+    if (image) image.style.left = this.defaultPosition + 'px';
 
     const animate = (time: number) => {
       let timeFraction = (time - start) / duration;
@@ -54,13 +54,13 @@ export class CarElement extends Component {
 
       const progress = timeFraction * fullRoad;
       if (image) {
-        image.style.marginLeft = progress + 'px';
+        image.style.left = progress + 'px';
       }
 
       if (timeFraction < 1) {
         this.animationId = window.requestAnimationFrame(animate);
       } else {
-        const imageMargin = image?.style.marginLeft as string;
+        const imageMargin = image?.style.left as string;
         if (imageMargin === fullRoad + 'px') {
           const time = (Date.now() - timer) / 1000;
           this.checkWinner(time);
@@ -69,6 +69,18 @@ export class CarElement extends Component {
     };
 
     this.animationId = window.requestAnimationFrame(animate);
+
+    this.setStartPosition();
+  };
+
+  private setStartPosition = () => {
+    const returnToStartPosition = () => {
+      cancelAnimationFrame(this.animationId);
+      const image = this.container.querySelector(`.${CarElementTypes.carImage}`) as HTMLDivElement;
+      if (image) image.style.left = 0 + 'px';
+    };
+    addEventListener(Events.startRace, returnToStartPosition);
+    addEventListener(Events.updatePage, returnToStartPosition);
   };
 
   private checkWinner = async (time: number) => {
@@ -161,7 +173,8 @@ export class CarElement extends Component {
       ]);
 
       window.cancelAnimationFrame(this.animationId);
-      if (this.image) this.image.style.marginLeft = this.defaultPosition + 'px';
+      const image = this.container.querySelector(`.${CarElementTypes.carImage}`) as HTMLDivElement;
+      if (image) image.style.left = 0 + 'px';
     });
 
     const stopHTML = this.stopButton.render();

@@ -1,8 +1,10 @@
 import { Component } from '../../templates/components';
 import { Button } from '../button/button';
+import './winnersListHeader.css';
 
 export const enum WinnersListHeaderTypes {
   winnersListHeader = 'winners-list-header',
+  winnersHeaderButton = 'winners-list-header__button',
 }
 
 export class WinnersListHeader extends Component {
@@ -16,11 +18,11 @@ export class WinnersListHeader extends Component {
   }
 
   private buildWinnersListHeader() {
-    const number = new Button('div', WinnersListHeaderTypes.winnersListHeader, 'Number', true);
-    const car = new Button('div', WinnersListHeaderTypes.winnersListHeader, 'Car', true);
-    const name = new Button('div', WinnersListHeaderTypes.winnersListHeader, 'Name', true);
-    const wins = new Button('div', WinnersListHeaderTypes.winnersListHeader, 'Wins');
-    const time = new Button('div', WinnersListHeaderTypes.winnersListHeader, 'Best time (seconds)');
+    const number = new Button('div', WinnersListHeaderTypes.winnersHeaderButton, 'Number', true);
+    const car = new Button('div', WinnersListHeaderTypes.winnersHeaderButton, 'Car', true);
+    const name = new Button('div', WinnersListHeaderTypes.winnersHeaderButton, 'Name', true);
+    const wins = new Button('div', WinnersListHeaderTypes.winnersHeaderButton, 'Wins');
+    const time = new Button('div', WinnersListHeaderTypes.winnersHeaderButton, 'Best time (seconds)');
 
     wins.onClick(this.resetByWins);
     time.onClick(this.resetByTime);

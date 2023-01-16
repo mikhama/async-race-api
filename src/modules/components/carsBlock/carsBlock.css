@@ -1,0 +1,9 @@
+.pagination button {
+  background-color: rgb(10, 74, 130);
+}
+
+.pagination {
+  width: 7rem;
+  display: flex;
+  justify-content: space-between;
+}

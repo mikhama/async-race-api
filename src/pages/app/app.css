@@ -1,9 +1,16 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
+  background-color: rgb(30, 31, 37);
+  margin: 20px;
+  color: rgb(225, 219, 219);
 }
 
 .header-page div {
-  width: 15%;
+  width: 12.5rem;
   display: flex;
   justify-content: space-between;
+}
+
+.header-page {
+  margin: 20px 0px;
 }

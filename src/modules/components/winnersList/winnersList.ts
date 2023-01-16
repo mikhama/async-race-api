@@ -1,7 +1,7 @@
 import { API } from '../../api/api';
 import { WinnerCar } from 'types/types';
 import { Component } from '../../templates/components';
-import { WinnerElement } from '../winnerElement/winnerElement';
+import { WinnerElement, WinnerElementTypes } from '../winnerElement/winnerElement';
 
 export const enum WinnersListTypes {
   winnersListClass = 'winners-list',
@@ -19,7 +19,7 @@ export class WinnersList extends Component {
       const car = await API.getCar(winner.id || 0);
       const carHTML = new WinnerElement(
         'div',
-        WinnersListTypes.winnersListClass,
+        WinnerElementTypes.winnerElementClass,
         winner.time,
         winner.wins,
         car.name,

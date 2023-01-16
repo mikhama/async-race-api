@@ -2,3 +2,10 @@
   width: 2.5rem;
   height: 1.25rem;
 }
+
+.winner-element {
+  margin: 0.5rem;
+  display: grid;
+  width: 37rem;
+  grid-template-columns: 1.3fr 2fr 1.8fr 1.2fr 3fr;
+}

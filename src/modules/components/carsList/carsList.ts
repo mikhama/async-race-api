@@ -1,6 +1,7 @@
 import { Car } from 'types/types';
 import { Component } from '../../templates/components';
 import { CarElement } from '../carElement/carElement';
+import './carsList.css';
 
 export const enum CarsListTypes {
   CarsListType = 'cars-element',

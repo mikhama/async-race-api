@@ -7,10 +7,12 @@ import { UpdateInput } from '../updateInput/updateInput';
 import { storage } from '../../storage/storage';
 import { CarsListTypes } from '../carsList/carsList';
 import { CarElementTypes } from '../carElement/carElement';
+import './infoBar.css';
 
 export const enum InformationTypes {
   updateType = 'update-input',
   createType = 'create-input',
+  buttonsContainer = 'buttons-container',
   generateCars = 'button-generate-cars',
   clearCars = 'button-clear-cars',
   raceCars = 'button-race',
@@ -30,6 +32,8 @@ export class infoBar extends Component {
   createButtons() {
     const race = new Button('button', InformationTypes.raceCars, 'RACE');
     race.onClick(() => {
+      window.dispatchEvent(CreatedEvents.startRace);
+
       const cars = document.querySelectorAll(`.${CarsListTypes.CarsListType}`);
 
       cars.forEach((car) => {
@@ -62,10 +66,15 @@ export class infoBar extends Component {
     //   storage.setDefaultCarPage();
     // });
 
-    this.container.append(race.render());
-    this.container.append(removeRase.render());
-    this.container.append(generateCars.render());
+    const buttonsContainer = document.createElement('div');
+    buttonsContainer.classList.add(InformationTypes.buttonsContainer);
+
+    buttonsContainer.append(race.render());
+    buttonsContainer.append(removeRase.render());
+    buttonsContainer.append(generateCars.render());
     // this.container.append(clear.render());
+
+    this.container.append(buttonsContainer);
   }
 
   render() {

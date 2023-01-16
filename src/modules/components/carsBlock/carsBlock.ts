@@ -3,6 +3,7 @@ import { API } from '../../api/api';
 import { CarsList } from '../carsList/carsList';
 import { Events } from '../../events/events';
 import { ListBlock } from '../../templates/listBlock';
+import './carsBlock.css'
 
 export const enum CarBlockTypes {
   CarBlockClass = 'cars-list',

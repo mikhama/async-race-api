@@ -9,12 +9,17 @@
   border-radius: 5px;
   outline: none;
   background: red;
-  box-shadow: 0 6px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 3px rgba(0, 0, 0, 0.8);
   transition: 0.2s;
 }
+
 .button:active {
-  box-shadow: 0 2px rgba(0, 0, 0, 0.8), 0 1px 6px rgba(0, 0, 0, 0.4), inset 0 1px rgba(255, 255, 255, 0.3),
-    inset 0 0 3px rgba(255, 255, 255, 0.5);
-  -webkit-transform: translate(0, 4px);
-  transform: translate(0, 4px);
+  box-shadow: 0 2px rgba(0, 0, 0, 0.8), 0 1px 6px rgba(0, 0, 0, 0.4);
+  -webkit-transform: translate(0, 1px);
+  transform: translate(0, 1px);
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: default;
 }

@@ -43,8 +43,8 @@ export class WinnerElement extends Component {
     time.innerHTML = `${this.time}`;
 
     this.container.append(number);
-    this.container.append(image);
     this.container.append(name);
+    this.container.append(image);
     this.container.append(wins);
     this.container.append(time);
     // this.container.innerHTML = `Winner: ${this.time} [${this.wins}]`;

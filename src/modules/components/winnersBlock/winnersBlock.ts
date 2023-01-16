@@ -78,14 +78,14 @@ export class WinnersBlock extends ListBlock {
       const page = storage.getWinnerPage();
       if (page && +page === minPage) isPrevDisabled = true;
       if (page && page !== '1') {
-        storage.setCarPage((+page - 1).toString());
+        storage.setWinnerPage((+page - 1).toString());
         this.container.innerHTML = '';
         this.buildWinnersList();
       }
     };
 
     const nextClick = () => {
-      const page = storage.getCarPage();
+      const page = storage.getWinnerPage();
       if (page && +page === maxPage) isNextDisabled = true;
       const condition = page && +page * +WinnersBlockTypes.limitType < Number(total);
       if (condition) {

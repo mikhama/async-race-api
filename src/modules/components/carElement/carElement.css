@@ -4,15 +4,42 @@
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: space-between;
-  border-bottom: 1px dashed rgb(0, 0, 0);
+  border-bottom: 1px dashed rgb(255, 255, 255);
 }
 
 .cars-element .car-header {
-  display: flex;
-  flex-direction: row;
+  font-size: large;
+  width: 35rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 4fr;
+  gap: 0.5rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cars-element .car-header .button {
+  height: 2rem;
+  background-color: rgb(156, 90, 10);
+}
+
+.cars-element .car-footer div {
+  width: 5rem;
+  height: 4.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.cars-element .car-footer div .button {
+  height: 2rem;
+  background-color: rgb(212, 11, 11);
 }
 
 .cars-element .car-footer {
   display: flex;
-  flex-direction: row;
+}
+
+.cars-element .car-image {
+  position: absolute;
+  left: 0px;
 }
