@@ -13,18 +13,18 @@ export enum WinnersBlockTypes {
   limitType = '10',
 }
 
+const enum ORDERS_AND_SORTS {
+  ASC = 'ASC',
+  DESC = 'DESC',
+  WINS = 'wins',
+  TIME = 'time',
+}
+
 export class WinnersBlock extends ListBlock {
   private winnersList: WinnersList;
   private total: string = '0';
   private order: string = 'DESC';
   private sortBy: string = 'id';
-
-  private ORDERS_AND_SORTS = {
-    ASC: 'ASC',
-    DESC: 'DESC',
-    WINS: 'wins',
-    TIME: 'time',
-  };
 
   constructor(tagName: string, className: string) {
     super(tagName, className);
@@ -36,12 +36,21 @@ export class WinnersBlock extends ListBlock {
     });
   }
 
-  private setSortBy(sort: string) {
-    const { DESC, ASC } = this.ORDERS_AND_SORTS;
+  setSortBy = (sort: string) => {
+    const DESC = ORDERS_AND_SORTS.DESC;
+    const ASC = ORDERS_AND_SORTS.ASC;
     this.sortBy = sort;
     this.order = this.order === DESC ? ASC : DESC;
     this.container.innerHTML = '';
     this.buildWinnersList();
+  };
+
+  private sortByWins() {
+    this.setSortBy(ORDERS_AND_SORTS.WINS);
+  }
+
+  private sortByTime() {
+    this.setSortBy(ORDERS_AND_SORTS.TIME);
   }
 
   private buildWinnersList = async () => {
@@ -59,8 +68,8 @@ export class WinnersBlock extends ListBlock {
     const winnersListHeader = new WinnersListHeader(
       TagNames.DIV,
       WinnersBlockTypes.winnersHeaderClass,
-      () => this.setSortBy(this.ORDERS_AND_SORTS.WINS),
-      () => this.setSortBy(this.ORDERS_AND_SORTS.TIME)
+      this.sortByWins.bind(this),
+      this.sortByTime.bind(this)
     );
 
     this.container.append(winnersListHeader.render());

@@ -35,11 +35,13 @@ export class UpdateInput extends InputField {
   }
 
   private changeUpdatedCar(car: Car) {
-    const carName = document.querySelector(`.${CarElementTypes.carName}`) as HTMLElement;
-    const carImage = document.querySelector(`.${CarElementTypes.carImage}`) as HTMLElement;
+    const carElement = document.querySelector(`[data-id="${this.id}"]`) as HTMLElement;
+    const carName = carElement.querySelector(`.${CarElementTypes.carName}`) as HTMLElement;
+    const carImage = carElement.querySelector(`.${CarElementTypes.carImage}`)?.getElementsByTagName(TagNames.SVG)[0];
 
     carName.innerHTML = car.name.trim();
-    carImage.getElementsByTagName(TagNames.G)[0].setAttribute('fill', car.color);
+    const g = carImage?.getElementsByTagName(TagNames.G)[0];
+    if (g) g.style.fill = car.color;
   }
 
   render() {

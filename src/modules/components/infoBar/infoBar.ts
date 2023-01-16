@@ -23,6 +23,7 @@ export const enum InformationTypes {
 export class infoBar extends Component {
   private updateInput: UpdateInput;
   private createInput: CreateInput;
+  private raceButton: Button | null = null;
 
   private buttonNames = {
     race: 'RACE',
@@ -38,6 +39,7 @@ export class infoBar extends Component {
 
   private createRaceButton() {
     const race = new Button(TagNames.BUTTON, InformationTypes.raceCars, this.buttonNames.race);
+    this.raceButton = race;
     race.onClick(() => {
       window.dispatchEvent(CreatedEvents.startRace);
 
@@ -47,7 +49,7 @@ export class infoBar extends Component {
         (<HTMLButtonElement>car.querySelector(`.${CarElementTypes.stopButton}`))?.click();
         (<HTMLButtonElement>car.querySelector(`.${CarElementTypes.startButton}`))?.click();
       });
-
+      race.toggleDisabledStatus();
       storage.setRaceCars();
     });
     return race;
@@ -57,6 +59,7 @@ export class infoBar extends Component {
     const removeRase = new Button(TagNames.BUTTON, InformationTypes.resetCars, this.buttonNames.reset);
     removeRase.onClick(() => {
       window.dispatchEvent(CreatedEvents.resetRace);
+      if (this.raceButton) this.raceButton.toggleDisabledStatus();
     });
     return removeRase;
   }

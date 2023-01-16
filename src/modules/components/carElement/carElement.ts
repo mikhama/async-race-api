@@ -11,6 +11,7 @@ export const enum CarElementTypes {
   buttonRemove = 'button-car-remove',
   buttonSelect = 'button-car-select',
   carImage = 'car-image',
+  carFinishFlag = 'car-finish-flag',
   carName = 'car-name',
   carHeader = 'car-header',
   carFooter = 'car-footer',
@@ -147,6 +148,14 @@ export class CarElement extends Component {
     return carImage;
   }
 
+  // private buildCarFinishFlag() {
+  //   const carFinishFlag = document.createElement(TagNames.IMG) as HTMLImageElement;
+  //   carFinishFlag.src =
+  //     'https://w7.pngwing.com/pngs/755/107/png-transparent-finish-flag-race-racing-win-winner-thumbnail.png';
+  //   carFinishFlag.classList.add(CarElementTypes.carFinishFlag);
+  //   return carFinishFlag;
+  // }
+
   private buildCarName = () => {
     const carName = document.createElement(TagNames.P);
     carName.classList.add(CarElementTypes.carName);
@@ -211,10 +220,12 @@ export class CarElement extends Component {
     const carName = this.buildCarName();
     const header = this.buildCarButtons();
     const footer = this.buildCarFooter();
+    // const finishFlag = this.buildCarFinishFlag();
 
     header.append(carName);
     this.container.append(header);
     this.container.append(footer);
+    // this.container.append(finishFlag);
   }
 
   render() {

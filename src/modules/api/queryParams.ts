@@ -16,7 +16,7 @@ export const getCarsParams = (page: number, limit: number): QueryParams[] => [
   { key: '_limit', value: limit },
 ];
 
-export const getWinnersParams = (page: number, limit: number, sort: string, order: string): QueryParams[] => [
+export const getWinnersParams = (page: number, limit: number, order: string, sort: string): QueryParams[] => [
   { key: '_page', value: page },
   { key: '_limit', value: limit },
   { key: '_sort', value: sort },
