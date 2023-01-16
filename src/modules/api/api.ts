@@ -97,7 +97,8 @@ export class API {
       const engine: SwitchEngine = await response.json();
       return engine;
     } catch (error) {
-      return { success: false };
+      if (response.status === 500) return { success: false };
+      else return { success: true };
     }
   };
 
@@ -110,11 +111,10 @@ export class API {
   };
 
   static getWinner = async (id: number) => {
-    const response = await fetch(`${API.BASE_URL}${API.Urls.winners}/${id}`);
-    const winner: WinnerCar = await response.json();
-
-    return winner;
-  }
+      const response = await fetch(`${API.BASE_URL}${API.Urls.winners}/${id}`);
+      const winner: WinnerCar = await response.json();
+      return winner;
+  };
 
   static createWinner = async (winner: WinnerCar) => {
     const response = await fetch(`${API.BASE_URL}${API.Urls.winners}`, {
@@ -127,7 +127,7 @@ export class API {
     const newWinner: WinnerCar = await response.json();
 
     return newWinner;
-  }
+  };
 
   static updateWinner = async (id: number, winner: WinnerCar) => {
     const response = await fetch(`${API.BASE_URL}${API.Urls.winners}/${id}`, {
@@ -140,11 +140,11 @@ export class API {
     const updatedWinner: WinnerCar = await response.json();
 
     return updatedWinner;
-  }
+  };
 
   static deleteWinner = async (id: number) => {
     await fetch(`${API.BASE_URL}${API.Urls.winners}/${id}`, {
       method: API.Methods.DELETE,
     });
-  }
+  };
 }

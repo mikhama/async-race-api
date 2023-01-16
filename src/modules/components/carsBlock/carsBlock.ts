@@ -21,6 +21,10 @@ export class CarBlock extends ListBlock {
     this.total = '0';
 
     addEventListener(Events.updatePage, () => {
+      const children = this.container.children;
+      for (let i = 0; i < children.length; i++) {
+        this.container.removeChild(children[i]);
+      }
       this.container.innerHTML = '';
       this.buildCarsList();
     });

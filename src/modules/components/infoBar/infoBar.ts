@@ -5,6 +5,8 @@ import { Button } from '../button/button';
 import { CreateInput } from '../createInput/createInput';
 import { UpdateInput } from '../updateInput/updateInput';
 import { storage } from '../../storage/storage';
+import { CarsListTypes } from '../carsList/carsList';
+import { CarElementTypes } from '../carElement/carElement';
 
 export const enum InformationTypes {
   updateType = 'update-input',
@@ -28,7 +30,14 @@ export class infoBar extends Component {
   createButtons() {
     const race = new Button('button', InformationTypes.raceCars, 'RACE');
     race.onClick(() => {
-      window.dispatchEvent(CreatedEvents.startRace);
+      const cars = document.querySelectorAll(`.${CarsListTypes.CarsListType}`);
+
+      cars.forEach((car) => {
+        (<HTMLButtonElement>car.querySelector(`.${CarElementTypes.stopButton}`))?.click();
+        (<HTMLButtonElement>car.querySelector(`.${CarElementTypes.startButton}`))?.click();
+      });
+
+      console.log(cars);
       storage.setRaceCars();
     });
 
@@ -44,19 +53,19 @@ export class infoBar extends Component {
       window.dispatchEvent(CreatedEvents.updatePage);
     });
 
-    const clear = new Button('button', InformationTypes.clearCars, 'CLEAR');
-    clear.onClick(async () => {
-      await API.deleteAllCars();
-      await API.getCars([]);
+    // const clear = new Button('button', InformationTypes.clearCars, 'CLEAR');
+    // clear.onClick(async () => {
+    //   await API.deleteAllCars();
+    //   await API.getCars([]);
 
-      window.dispatchEvent(CreatedEvents.updatePage);
-      storage.setDefaultCarPage();
-    });
+    //   window.dispatchEvent(CreatedEvents.updatePage);
+    //   storage.setDefaultCarPage();
+    // });
 
     this.container.append(race.render());
     this.container.append(removeRase.render());
     this.container.append(generateCars.render());
-    this.container.append(clear.render());
+    // this.container.append(clear.render());
   }
 
   render() {

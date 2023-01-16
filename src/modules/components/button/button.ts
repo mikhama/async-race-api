@@ -1,4 +1,5 @@
 import { Component } from '../../templates/components';
+import './button.css';
 
 export class Button extends Component {
   constructor(tagName: string, className: string, text: string, isDisabled: boolean = false) {
