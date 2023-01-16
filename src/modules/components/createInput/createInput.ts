@@ -3,13 +3,13 @@ import { API } from '../../api/api';
 import { InputField } from '../../templates/inputField';
 
 export class CreateInput extends InputField {
-  static TextObject = {
-    ButtonContent: 'CREATE CAR',
+  static textObject = {
+    buttonContent: 'CREATE CAR',
   };
 
   constructor(tagName: string, className: string) {
     super(tagName, className);
-    this.button.textContent = CreateInput.TextObject.ButtonContent;
+    this.button.textContent = CreateInput.textObject.buttonContent;
   }
 
   render() {

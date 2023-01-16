@@ -1,4 +1,5 @@
 import { Button } from '../components/button/button';
+import { TagNames } from '../utils/constants';
 import { Component } from './components';
 
 export const enum InputFieldTypes {
@@ -7,7 +8,11 @@ export const enum InputFieldTypes {
 }
 
 export class InputField extends Component {
-  static TextObject = {};
+  private textObject = {
+    typeText: 'text',
+    typeColor: 'color',
+    placeholder: 'Enter car name',
+  };
   protected input: HTMLInputElement;
   protected colorInput: HTMLInputElement;
   protected button: HTMLButtonElement;
@@ -17,15 +22,18 @@ export class InputField extends Component {
 
     this.container.classList.add(InputFieldTypes.inputField);
 
-    this.input = document.createElement('input');
-    this.input.type = 'text';
-    this.input.placeholder = 'Enter car name';
+    this.input = document.createElement(TagNames.INPUT);
+    this.input.type = this.textObject.typeText;
+    this.input.placeholder = this.textObject.placeholder;
 
-    this.colorInput = document.createElement('input');
-    this.colorInput.type = 'color';
+    this.colorInput = document.createElement(TagNames.INPUT);
+    this.colorInput.type = this.textObject.typeColor;
 
-    // this.button = document.createElement('button');
-    this.button = new Button('button', InputFieldTypes.inputFieldButton, 'button').render() as HTMLButtonElement;
+    this.button = new Button(
+      TagNames.BUTTON,
+      InputFieldTypes.inputFieldButton,
+      TagNames.BUTTON
+    ).render() as HTMLButtonElement;
   }
 
   render() {

@@ -1,3 +1,5 @@
+import { getWinnersParams } from '../../api/queryParams';
+import { TagNames } from '../../utils/constants';
 import { API } from '../../api/api';
 import { Events } from '../../events/events';
 import { storage } from '../../storage/storage';
@@ -13,14 +15,20 @@ export enum WinnersBlockTypes {
 
 export class WinnersBlock extends ListBlock {
   private winnersList: WinnersList;
-  private total: string;
+  private total: string = '0';
   private order: string = 'DESC';
   private sortBy: string = 'id';
 
+  private ORDERS_AND_SORTS = {
+    ASC: 'ASC',
+    DESC: 'DESC',
+    WINS: 'wins',
+    TIME: 'time',
+  };
+
   constructor(tagName: string, className: string) {
     super(tagName, className);
-    this.winnersList = new WinnersList('div', WinnersBlockTypes.winnersBlockClass, []);
-    this.total = '0';
+    this.winnersList = new WinnersList(TagNames.DIV, WinnersBlockTypes.winnersBlockClass, []);
 
     addEventListener(Events.updatePage, () => {
       this.container.innerHTML = '';
@@ -28,44 +36,36 @@ export class WinnersBlock extends ListBlock {
     });
   }
 
-  private sortByWins = () => {
-    this.sortBy = 'wins';
-    this.order = this.order === 'DESC' ? 'ASC' : 'DESC';
+  private setSortBy(sort: string) {
+    const { DESC, ASC } = this.ORDERS_AND_SORTS;
+    this.sortBy = sort;
+    this.order = this.order === DESC ? ASC : DESC;
     this.container.innerHTML = '';
     this.buildWinnersList();
-  };
-
-  private sortByTime = () => {
-    this.sortBy = 'time';
-    this.order = this.order === 'DESC' ? 'ASC' : 'DESC';
-    this.container.innerHTML = '';
-    this.buildWinnersList();
-  };
+  }
 
   private buildWinnersList = async () => {
     const page = storage.getWinnerPage();
     const currentPage = page ? page : '1';
 
-    const { winners, total } = await API.getWinners([
-      { key: '_page', value: currentPage },
-      { key: '_limit', value: WinnersBlockTypes.limitType },
-      { key: '_sort', value: this.sortBy },
-      { key: '_order', value: this.order },
-    ]);
+    const { winners, total } = await API.getWinners(
+      getWinnersParams(+currentPage, +WinnersBlockTypes.limitType, this.order, this.sortBy)
+    );
 
     this.total = total ? total : this.total;
-    this.buildHeader('Winners', this.total, currentPage);
+    const winnersText = 'Winners';
+    this.buildHeader(winnersText, this.total, currentPage);
 
     const winnersListHeader = new WinnersListHeader(
-      'div',
+      TagNames.DIV,
       WinnersBlockTypes.winnersHeaderClass,
-      this.sortByWins,
-      this.sortByTime
+      () => this.setSortBy(this.ORDERS_AND_SORTS.WINS),
+      () => this.setSortBy(this.ORDERS_AND_SORTS.TIME)
     );
 
     this.container.append(winnersListHeader.render());
 
-    this.winnersList = new WinnersList('div', WinnersBlockTypes.winnersBlockClass, winners);
+    this.winnersList = new WinnersList(TagNames.DIV, WinnersBlockTypes.winnersBlockClass, winners);
     this.container.append(this.winnersList.render());
 
     const maxPage = Math.ceil(Number(this.total) / Number(WinnersBlockTypes.limitType));

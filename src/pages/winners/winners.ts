@@ -1,3 +1,4 @@
+import { TagNames } from '../../modules/utils/constants';
 import { WinnersBlock } from '../../modules/components/winnersBlock/winnersBlock';
 import { Page } from '../../modules/templates/page';
 
@@ -10,7 +11,7 @@ export class WinnersPage extends Page {
 
   constructor(id: string) {
     super(id);
-    this.WinnersBlock = new WinnersBlock('div', WinnersPageTypes.WinnersBlock);
+    this.WinnersBlock = new WinnersBlock(TagNames.DIV, WinnersPageTypes.WinnersBlock);
   }
 
   render() {

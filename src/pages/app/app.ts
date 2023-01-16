@@ -1,9 +1,9 @@
-import { Page } from '../../modules/templates/page';
 import { GaragePage } from '../garage/garage';
 import { WinnersPage } from '../winners/winners';
 import { NotFoundPage, ErrorTypes } from '../notFound/notFound';
 import { Header } from '../../modules/components/header/header';
 import './app.css';
+import { TagNames } from 'src/modules/utils/constants';
 
 export const enum PageTypes {
   garagePage = 'garage-page',
@@ -16,8 +16,13 @@ export class App {
   private static defaultPageId: string = 'garage-page';
   private header: Header;
 
+  private static garagePage: HTMLElement;
+  private static notFoundPage: HTMLElement;
+
   constructor() {
-    this.header = new Header('header', PageTypes.header);
+    this.header = new Header(TagNames.HEADER, PageTypes.header);
+    App.garagePage = new GaragePage(PageTypes.garagePage).render();
+    App.notFoundPage = new NotFoundPage(PageTypes.winnersPage, ErrorTypes.Error404).render();
   }
 
   static renderNewPage(idPage: string) {
@@ -26,18 +31,18 @@ export class App {
 
     idPage = idPage || App.defaultPageId;
 
-    let page: Page | null = null;
+    let page: HTMLElement | null = null;
 
     if (idPage === PageTypes.garagePage) {
-      page = new GaragePage(idPage) || null;
+      page = App.garagePage;
     } else if (idPage === PageTypes.winnersPage) {
-      page = new WinnersPage(idPage);
+      page = new WinnersPage(PageTypes.winnersPage).render();
     } else {
-      page = new NotFoundPage(idPage, ErrorTypes.Error404);
+      page = App.notFoundPage;
     }
 
     if (page) {
-      const pageHTML = page.render();
+      const pageHTML = page;
       pageHTML.id = App.defaultPageId;
       App.container.appendChild(pageHTML);
     }

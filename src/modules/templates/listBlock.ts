@@ -1,20 +1,27 @@
 import { Button } from '../components/button/button';
+import { TagNames } from '../utils/constants';
 import { Component } from './components';
 
 export const enum ListBlockTypes {
   prevButtonType = 'prev-button',
   nextButtonType = 'next-button',
+  pagination = 'pagination',
 }
 
 export class ListBlock extends Component {
+  private buttonNames = {
+    prev: 'PREV',
+    next: 'NEXT',
+  };
+
   constructor(tagName: string, className: string) {
     super(tagName, className);
   }
 
   protected buildHeader(name: string, total: string, page: string) {
-    const header = document.createElement('h1');
+    const header = document.createElement(TagNames.H1);
     header.innerText = `${name} (${total})`;
-    const counter = document.createElement('h2');
+    const counter = document.createElement(TagNames.H2);
     counter.innerText = `Page #${page}`;
     this.container.append(header);
     this.container.append(counter);
@@ -26,13 +33,23 @@ export class ListBlock extends Component {
     prevClick: () => void,
     nextClick: () => void
   ) => {
-    const pagination = document.createElement('div');
-    pagination.classList.add('pagination');
+    const pagination = document.createElement(TagNames.DIV);
+    pagination.classList.add(ListBlockTypes.pagination);
 
-    const prevButton = new Button('button', ListBlockTypes.prevButtonType, 'PREV', isPrevDisabled);
+    const prevButton = new Button(
+      TagNames.BUTTON,
+      ListBlockTypes.prevButtonType,
+      this.buttonNames.prev,
+      isPrevDisabled
+    );
     prevButton.onClick(prevClick);
 
-    const nextButton = new Button('button', ListBlockTypes.nextButtonType, 'NEXT', isNextDisabled);
+    const nextButton = new Button(
+      TagNames.BUTTON,
+      ListBlockTypes.nextButtonType,
+      this.buttonNames.next,
+      isNextDisabled
+    );
     nextButton.onClick(nextClick);
 
     pagination.append(prevButton.render());

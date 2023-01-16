@@ -1,3 +1,4 @@
+import { TagNames } from '../../utils/constants';
 import { Car } from 'types/types';
 import { Component } from '../../templates/components';
 import { CarElement } from '../carElement/carElement';
@@ -15,7 +16,7 @@ export class CarsList extends Component {
   }
   private buildCarsList() {
     this.cars.forEach((car) => {
-      const carHTML = new CarElement('div', CarsListTypes.CarsListType, car.name, car.color, String(car.id));
+      const carHTML = new CarElement(TagNames.DIV, CarsListTypes.CarsListType, car.name, car.color, String(car.id));
       this.container.append(carHTML.render());
     });
   }

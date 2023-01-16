@@ -1,5 +1,5 @@
 import { Component } from '../../templates/components';
-import { carTag } from '../../utils/utils';
+import { carTag, TagNames } from '../../utils/constants';
 import './winnerElement.css';
 
 export const enum WinnerElementTypes {
@@ -24,22 +24,22 @@ export class WinnerElement extends Component {
   }
 
   private buildWinnerElement() {
-    const number = document.createElement('span');
+    const number = document.createElement(TagNames.SPAN);
     number.innerHTML = `${this.id}`;
 
-    const image = document.createElement('span');
+    const image = document.createElement(TagNames.SPAN);
     image.innerHTML = carTag;
-    const g = image.getElementsByTagName('g')[0];
+    const g = image.getElementsByTagName(TagNames.G)[0];
     g.style.fill = this.color;
     image.classList.add(WinnerElementTypes.winnerImageClass);
 
-    const name = document.createElement('span');
+    const name = document.createElement(TagNames.SPAN);
     name.innerHTML = `${this.name}`;
 
-    const wins = document.createElement('span');
+    const wins = document.createElement(TagNames.SPAN);
     wins.innerHTML = `${this.wins}`;
 
-    const time = document.createElement('span');
+    const time = document.createElement(TagNames.SPAN);
     time.innerHTML = `${this.time}`;
 
     this.container.append(number);
@@ -47,7 +47,6 @@ export class WinnerElement extends Component {
     this.container.append(image);
     this.container.append(wins);
     this.container.append(time);
-    // this.container.innerHTML = `Winner: ${this.time} [${this.wins}]`;
   }
 
   render() {

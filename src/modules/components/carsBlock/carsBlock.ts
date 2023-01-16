@@ -3,7 +3,9 @@ import { API } from '../../api/api';
 import { CarsList } from '../carsList/carsList';
 import { Events } from '../../events/events';
 import { ListBlock } from '../../templates/listBlock';
-import './carsBlock.css'
+import './carsBlock.css';
+import { TagNames } from '../../utils/constants';
+import { getCarsParams } from '../../api/queryParams';
 
 export const enum CarBlockTypes {
   CarBlockClass = 'cars-list',
@@ -18,7 +20,7 @@ export class CarBlock extends ListBlock {
 
   constructor(tagName: string, className: string) {
     super(tagName, className);
-    this.CarsList = new CarsList('div', CarBlockTypes.CarBlockClass, []);
+    this.CarsList = new CarsList(TagNames.DIV, CarBlockTypes.CarBlockClass, []);
     this.total = '0';
 
     addEventListener(Events.updatePage, () => {
@@ -35,15 +37,12 @@ export class CarBlock extends ListBlock {
     const page = storage.getCarPage();
     const currentPage = page ? page : '1';
 
-    const { cars, total } = await API.getCars([
-      { key: '_page', value: currentPage },
-      { key: '_limit', value: CarBlockTypes.LimitType },
-    ]);
+    const { cars, total } = await API.getCars(getCarsParams(+currentPage, +CarBlockTypes.LimitType));
 
     this.total = total ? total : this.total;
     this.buildHeader('Garage', this.total, currentPage);
 
-    this.CarsList = new CarsList('div', CarBlockTypes.CarBlockClass, cars);
+    this.CarsList = new CarsList(TagNames.DIV, CarBlockTypes.CarBlockClass, cars);
     this.container.append(this.CarsList.render());
 
     const maxPage = Math.ceil(Number(this.total) / Number(CarBlockTypes.LimitType));

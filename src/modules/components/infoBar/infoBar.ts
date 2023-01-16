@@ -8,6 +8,7 @@ import { storage } from '../../storage/storage';
 import { CarsListTypes } from '../carsList/carsList';
 import { CarElementTypes } from '../carElement/carElement';
 import './infoBar.css';
+import { TagNames } from 'src/modules/utils/constants';
 
 export const enum InformationTypes {
   updateType = 'update-input',
@@ -23,14 +24,20 @@ export class infoBar extends Component {
   private updateInput: UpdateInput;
   private createInput: CreateInput;
 
+  private buttonNames = {
+    race: 'RACE',
+    reset: 'RESET',
+    generate: 'GENERATE CARS',
+  };
+
   constructor(tagName: string, className: string) {
     super(tagName, className);
-    this.updateInput = new UpdateInput('div', InformationTypes.updateType);
-    this.createInput = new CreateInput('div', InformationTypes.createType);
+    this.updateInput = new UpdateInput(TagNames.DIV, InformationTypes.updateType);
+    this.createInput = new CreateInput(TagNames.DIV, InformationTypes.createType);
   }
 
-  createButtons() {
-    const race = new Button('button', InformationTypes.raceCars, 'RACE');
+  private createRaceButton() {
+    const race = new Button(TagNames.BUTTON, InformationTypes.raceCars, this.buttonNames.race);
     race.onClick(() => {
       window.dispatchEvent(CreatedEvents.startRace);
 
@@ -41,39 +48,39 @@ export class infoBar extends Component {
         (<HTMLButtonElement>car.querySelector(`.${CarElementTypes.startButton}`))?.click();
       });
 
-      console.log(cars);
       storage.setRaceCars();
     });
+    return race;
+  }
 
-    const removeRase = new Button('button', InformationTypes.resetCars, 'RESET');
+  private createResetButton() {
+    const removeRase = new Button(TagNames.BUTTON, InformationTypes.resetCars, this.buttonNames.reset);
     removeRase.onClick(() => {
       window.dispatchEvent(CreatedEvents.resetRace);
     });
+    return removeRase;
+  }
 
-    const generateCars = new Button('button', InformationTypes.generateCars, 'GENERATE CARS');
+  private createGenerateButton() {
+    const generateCars = new Button(TagNames.BUTTON, InformationTypes.generateCars, this.buttonNames.generate);
     generateCars.onClick(async () => {
       const carsAmount = 100;
       await API.createRandomCars(carsAmount);
       window.dispatchEvent(CreatedEvents.updatePage);
     });
+    return generateCars;
+  }
 
-    // const clear = new Button('button', InformationTypes.clearCars, 'CLEAR');
-    // clear.onClick(async () => {
-    //   await API.deleteAllCars();
-    //   await API.getCars([]);
-
-    //   window.dispatchEvent(CreatedEvents.updatePage);
-    //   storage.setDefaultCarPage();
-    // });
-
-    const buttonsContainer = document.createElement('div');
+  private createButtons() {
+    const race = this.createRaceButton();
+    const removeRase = this.createResetButton();
+    const generateCars = this.createGenerateButton();
+    const buttonsContainer = document.createElement(TagNames.DIV);
     buttonsContainer.classList.add(InformationTypes.buttonsContainer);
 
     buttonsContainer.append(race.render());
     buttonsContainer.append(removeRase.render());
     buttonsContainer.append(generateCars.render());
-    // this.container.append(clear.render());
-
     this.container.append(buttonsContainer);
   }
 

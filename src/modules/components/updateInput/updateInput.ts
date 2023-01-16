@@ -1,19 +1,22 @@
-// import { CreatedEvents } from '../../events/events';
 import { API } from '../../api/api';
 import { storage } from '../../storage/storage';
 import { InputField } from '../../templates/inputField';
 import { Car } from 'types/types';
 import { CarElementTypes } from '../carElement/carElement';
+import { TagNames } from 'src/modules/utils/constants';
 
 export class UpdateInput extends InputField {
-  static TextObject = {
-    ButtonContent: 'UPDATE CAR',
+  static textObject = {
+    buttonContent: 'UPDATE CAR',
+    defaultColor: '#000000',
+    defaultValue: '',
+    defaultStatus: true,
   };
   private id: number = 0;
 
   constructor(tagName: string, className: string) {
     super(tagName, className);
-    this.button.innerHTML = UpdateInput.TextObject.ButtonContent;
+    this.button.innerHTML = UpdateInput.textObject.buttonContent;
     this.button.disabled = true;
     this.selectElement();
   }
@@ -22,7 +25,6 @@ export class UpdateInput extends InputField {
     addEventListener('storage', async () => {
       const id = +storage.getSelectedCar();
       if (id) {
-        console.log('id', id, 'this.id', this.id);
         this.id = id;
         const car = await API.getCar(id);
         this.input.value = car.name;
@@ -37,7 +39,7 @@ export class UpdateInput extends InputField {
     const carImage = document.querySelector(`.${CarElementTypes.carImage}`) as HTMLElement;
 
     carName.innerHTML = car.name.trim();
-    carImage.getElementsByTagName('g')[0].setAttribute('fill', car.color);
+    carImage.getElementsByTagName(TagNames.G)[0].setAttribute('fill', car.color);
   }
 
   render() {
@@ -52,13 +54,14 @@ export class UpdateInput extends InputField {
       await API.updateCar(+this.id, car);
 
       this.changeUpdatedCar(car);
-
       storage.setDefaultSelectedCar();
 
-      this.input.value = '';
-      this.colorInput.value = '#000000';
+      const { defaultColor, defaultValue, defaultStatus: defaultStatus } = UpdateInput.textObject;
 
-      this.button.disabled = true;
+      this.input.value = defaultValue;
+      this.colorInput.value = defaultColor;
+
+      this.button.disabled = defaultStatus;
     });
 
     return this.container;
