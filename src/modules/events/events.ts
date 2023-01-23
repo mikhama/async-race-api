@@ -1,5 +1,6 @@
 export const enum Events {
   storage = 'storage',
+  changePage = 'changePage',
   updatePage = 'updatePage',
   startRace = 'startRace',
   resetRace = 'resetRace',
@@ -9,6 +10,7 @@ export const enum Events {
 
 export const CreatedEvents = {
   storage: new Event(Events.storage),
+  changePage: new Event(Events.changePage),
   updatePage: new Event(Events.updatePage),
   startRace: new Event(Events.startRace),
   resetRace: new Event(Events.resetRace),

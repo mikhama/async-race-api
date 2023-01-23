@@ -59,7 +59,7 @@ export class infoBar extends Component {
     const removeRase = new Button(TagNames.BUTTON, InformationTypes.resetCars, this.buttonNames.reset);
     removeRase.onClick(() => {
       window.dispatchEvent(CreatedEvents.resetRace);
-      if (this.raceButton) this.raceButton.toggleDisabledStatus();
+      if (this.raceButton?.isDisabled) this.raceButton.toggleDisabledStatus();
     });
     return removeRase;
   }
@@ -70,6 +70,7 @@ export class infoBar extends Component {
       const carsAmount = 100;
       await API.createRandomCars(carsAmount);
       window.dispatchEvent(CreatedEvents.updatePage);
+      if (this.raceButton?.isDisabled) this.raceButton.toggleDisabledStatus();
     });
     return generateCars;
   }

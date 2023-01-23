@@ -11,6 +11,7 @@ class LocalStorage {
   };
 
   private Keys = {
+    currentPage: 'currentPage',
     cars: 'cars',
     race: 'race',
     carPage: 'page',
@@ -22,6 +23,14 @@ class LocalStorage {
     if (!localStorage.getItem(this.Keys.carPage)) localStorage.setItem(this.Keys.carPage, this.Initial.carPage);
     if (!localStorage.getItem(this.Keys.winnerPage)) localStorage.setItem(this.Keys.winnerPage, this.Initial.winnerPage);
     localStorage.setItem(this.Keys.selectedCar, this.Initial.selectedCar);
+  }
+
+  getIdPage() {
+    return localStorage.getItem(this.Keys.currentPage);
+  }
+
+  setIdPage(id: string) {
+    localStorage.setItem(this.Keys.currentPage, id);
   }
 
   setRaceCars(data: string | FinishCar = this.Initial.race) {

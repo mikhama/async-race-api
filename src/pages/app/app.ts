@@ -4,6 +4,8 @@ import { NotFoundPage, ErrorTypes } from '../notFound/notFound';
 import { Header } from '../../modules/components/header/header';
 import './app.css';
 import { TagNames } from 'src/modules/utils/constants';
+import { Events } from 'src/modules/events/events';
+import { storage } from '../../modules/storage/storage';
 
 export const enum PageTypes {
   garagePage = 'garage-page',
@@ -13,7 +15,7 @@ export const enum PageTypes {
 
 export class App {
   private static container: HTMLElement = document.body;
-  private static defaultPageId: string = 'garage-page';
+  private static defaultPageId: string = PageTypes.garagePage;
   private header: Header;
 
   private static garagePage: HTMLElement;
@@ -48,17 +50,15 @@ export class App {
     }
   }
 
-  private getHashId = () => window.location.hash.slice(1);
-
   private enableRouteChange() {
-    window.addEventListener('hashchange', () => {
-      const idPage = this.getHashId();
+    window.addEventListener(Events.changePage, () => {
+      const idPage = storage.getIdPage() || App.defaultPageId;
       App.renderNewPage(idPage);
     });
   }
 
   run() {
-    App.renderNewPage(this.getHashId());
+    App.renderNewPage(storage.getIdPage() || App.defaultPageId);
     App.container.prepend(this.header.render());
     this.enableRouteChange();
   }
