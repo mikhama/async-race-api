@@ -36,17 +36,27 @@ const server = jsonServer.create();
 const router = jsonServer.router(db);
 const middlewares = jsonServer.defaults();
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 const state = { velocity: {}, blocked: {} };
 
 server.use(middlewares);
 
+const STATUS = {
+    STARTED: 'started',
+    STOPPED: 'stopped',
+    DRIVE: 'drive',
+};
+
 server.patch('/engine', (req, res) => {
     const { id, status } = req.query;
 
-    if (!id || !status || !/^(started)|(stopped)|(drive)$/.test(status)) {
-        return res.status(400).send('Wrong parameters: "id" should be any positive number, "status" should be "started", "stopped" or "drive"');
+    if (!id || Number.isNaN(+id) || +id <= 0) {
+        return res.status(400).send('Required parameter "id" is missing. Should be a positive number');
+    }
+
+    if (!status || !/^(started)|(stopped)|(drive)$/.test(status)) {
+        return res.status(400).send(`Wrong parameter "status". Expected: "started", "stopped" or "drive". Received: "${status}"`);
     }
 
     if (!db.garage.find(car => car.id === +id)) {
@@ -54,11 +64,17 @@ server.patch('/engine', (req, res) => {
     }
 
     const distance = 500000;
-    if (status === 'drive') {
+
+    if (status === STATUS.DRIVE) {
         const velocity = state.velocity[id];
 
-        if (!velocity) return res.status(404).send('Engine parameters for car with such id was not found in the garage. Have you tried to set engine status to "started" before?');
-        if (state.blocked[id]) return res.status(429).send('Drive already in progress. You can\'t run drive for the same car twice while it\'s not stopped.');
+        if (!velocity) {
+            return res.status(404).send('Engine parameters for car with such id was not found in the garage. Have you tried to set engine status to "started" before?');
+        }
+
+        if (state.blocked[id]) {
+            return res.status(429).send('Drive already in progress. You can\'t run drive for the same car twice while it\'s not stopped.');
+        }
         
         state.blocked[id] = true;
 
@@ -80,7 +96,7 @@ server.patch('/engine', (req, res) => {
     } else {
         const x = req.query.speed ? +req.query.speed : Math.random() * 2000 ^ 0;
 
-        const velocity = status === 'started' ? Math.max(50, Math.random() * 200 ^ 0) : 0;
+        const velocity = status === STATUS.STARTED ? Math.max(50, Math.random() * 200 ^ 0) : 0;
 
         if (velocity) {
             state.velocity[id] = velocity;
