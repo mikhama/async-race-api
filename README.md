@@ -539,7 +539,7 @@ Returns json data about winners.
 
 **Get Winner**
 ----
-Returns json data about specified winner.
+Returns json data about the specified winner.
 
 <details>
 
@@ -597,7 +597,7 @@ Returns json data about specified winner.
 
 **Create Winner**
 ----
-Creates a new records in a winners table.
+Creates a new records in the winners table.
 
 <details>
 
@@ -658,7 +658,7 @@ Creates a new records in a winners table.
 
 **Delete Winner**
 ----
-Delete specified car from a garage
+Delete the specified car from the winners table.
 
 <details>
 
@@ -712,7 +712,7 @@ Delete specified car from a garage
 
 **Update Winner**
 ----
-Updates attributes of specified winner.
+Updates attributes of the specified winner.
 
 <details>
 
