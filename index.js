@@ -80,16 +80,15 @@ server.patch('/engine', (req, res) => {
 
         const x = Math.round(distance / velocity);
 
+        delete state.velocity[id];
+        delete state.blocked[id];
+
         if (new Date().getMilliseconds() % 3 === 0) {
-            setTimeout(() => {
-                delete state.velocity[id];
-                delete state.blocked[id];
+            setTimeout(() => {                
                 res.header('Content-Type', 'application/json').status(500).send('Car has been stopped suddenly. It\'s engine was broken down.');
             }, Math.random() * x ^ 0);
         } else {
-            setTimeout(() => {
-                delete state.velocity[id];
-                delete state.blocked[id];
+            setTimeout(() => {                
                 res.header('Content-Type', 'application/json').status(200).send(JSON.stringify({ success: true }));
             }, x);
         }
