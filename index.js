@@ -66,29 +66,30 @@ server.patch('/engine', (req, res) => {
     const distance = 500000;
 
     if (status === STATUS.DRIVE) {
+        if (state.blocked[id]) {
+            return res.status(429).send('Drive already in progress. You can\'t run drive for the same car twice while it\'s not stopped.');
+        }
+        
         const velocity = state.velocity[id];
 
         if (!velocity) {
             return res.status(404).send('Engine parameters for car with such id was not found in the garage. Have you tried to set engine status to "started" before?');
         }
 
-        if (state.blocked[id]) {
-            return res.status(429).send('Drive already in progress. You can\'t run drive for the same car twice while it\'s not stopped.');
-        }
         
         state.blocked[id] = true;
 
         const x = Math.round(distance / velocity);
 
+        delete state.velocity[id];        
+
         if (new Date().getMilliseconds() % 3 === 0) {
-            setTimeout(() => {
-                delete state.velocity[id];
+            setTimeout(() => {                
                 delete state.blocked[id];
                 res.header('Content-Type', 'application/json').status(500).send('Car has been stopped suddenly. It\'s engine was broken down.');
             }, Math.random() * x ^ 0);
         } else {
-            setTimeout(() => {
-                delete state.velocity[id];
+            setTimeout(() => {                
                 delete state.blocked[id];
                 res.header('Content-Type', 'application/json').status(200).send(JSON.stringify({ success: true }));
             }, x);
