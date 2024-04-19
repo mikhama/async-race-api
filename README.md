@@ -25,6 +25,7 @@ Api for Rolling Scopes School task "Async Race".
     - [Get Winners](https://github.com/mikhama/async-race-api#get-winners)
     - [Get Winner](https://github.com/mikhama/async-race-api#get-winner)
     - [Create Winner](https://github.com/mikhama/async-race-api#create-winner)
+    - [Delete Winner](https://github.com/mikhama/async-race-api#delete-winner)
     - [Update Winner](https://github.com/mikhama/async-race-api#update-winner)
 
 **Get Cars**
